@@ -1,0 +1,9 @@
+{
+  "name": "ElasticExportCdiscountCOM",
+  "description": "This plugin adds the format CdiscountCOM to the Elastic Export.",
+  "namespace": "ElasticExportCdiscountCOM",
+  "author": "plentymarkets",
+  "type": "export",
+  "serviceProvider": "ElasticExportCdiscountCOM\\ElasticExportCdiscountCOMServiceProvider",
+  "version": 0.1
+}
