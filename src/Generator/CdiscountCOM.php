@@ -59,19 +59,16 @@ class CdiscountCOM extends CSVGenerator
 
     /**
      * CdiscountCOM constructor.
-     * @param ElasticExportCoreHelper $elasticExportHelper
      * @param ArrayHelper $arrayHelper
      * @param AttributeValueNameRepositoryContract $attributeValueNameRepository
      * @param PropertySelectionRepositoryContract $propertySelectionRepository
      */
     public function __construct(
-        ElasticExportCoreHelper $elasticExportHelper,
         ArrayHelper $arrayHelper,
         AttributeValueNameRepositoryContract $attributeValueNameRepository,
         PropertySelectionRepositoryContract $propertySelectionRepository
     )
     {
-        $this->elasticExportHelper = $elasticExportHelper;
         $this->arrayHelper = $arrayHelper;
         $this->attributeValueNameRepository = $attributeValueNameRepository;
         $this->propertySelectionRepository = $propertySelectionRepository;
@@ -83,6 +80,7 @@ class CdiscountCOM extends CSVGenerator
      */
     protected function generateContent($resultData, array $formatSettings = [])
     {
+        $this->elasticExportHelper = pluginApp(ElasticExportCoreHelper::class);
         if(is_array($resultData) && count($resultData['documents']) > 0)
         {
             $settings = $this->arrayHelper->buildMapFromObjectList($formatSettings, 'key', 'value');
