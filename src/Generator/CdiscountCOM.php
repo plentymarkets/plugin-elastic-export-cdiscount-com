@@ -3,7 +3,7 @@
 namespace ElasticExportCdiscountCOM\Generator;
 
 use ElasticExport\Helper\ElasticExportCoreHelper;
-use Plenty\Modules\DataExchange\Contracts\CSVGenerator;
+use Plenty\Modules\DataExchange\Contracts\CSVPluginGenerator;
 use Plenty\Modules\Helper\Models\KeyValue;
 use Plenty\Modules\Helper\Services\ArrayHelper;
 use Plenty\Modules\Item\Attribute\Contracts\AttributeValueNameRepositoryContract;
@@ -13,7 +13,7 @@ use Plenty\Modules\Item\DataLayer\Models\RecordList;
 use Plenty\Modules\Item\Property\Contracts\PropertySelectionRepositoryContract;
 use Plenty\Modules\Item\Property\Models\PropertySelection;
 
-class CdiscountCOM extends CSVGenerator
+class CdiscountCOM extends CSVPluginGenerator
 {
     const CDISCOUNT_COM = 143.00;
     const CHARACTER_TYPE_DESCRIPTION				    =   'description';
@@ -79,7 +79,7 @@ class CdiscountCOM extends CSVGenerator
      * @param array $formatSettings
      * @param array $filter
      */
-    protected function generateContent($resultData, array $formatSettings = [], array $filter = [])
+    protected function generatePluginContent($resultData, array $formatSettings = [], array $filter = [])
     {
         $this->elasticExportHelper = pluginApp(ElasticExportCoreHelper::class);
         if(is_array($resultData['documents']) && count($resultData['documents']) > 0)
