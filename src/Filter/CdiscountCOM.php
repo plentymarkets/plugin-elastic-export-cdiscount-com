@@ -2,11 +2,11 @@
 
 namespace ElasticExportCdiscountCOM\Filter;
 
-use Plenty\Modules\DataExchange\Contracts\FiltersForElasticSearchContract;
+use Plenty\Modules\DataExchange\Contracts\FiltersForElasticSearch;
 use Plenty\Plugin\Application;
 
 
-class CdiscountCOM extends FiltersForElasticSearchContract
+class CdiscountCOM extends FiltersForElasticSearch
 {
     /**
      * @var Application $app
