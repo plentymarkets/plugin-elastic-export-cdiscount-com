@@ -5,7 +5,7 @@
 
 ## Registering with Cdiscount.com
 
-Items are sold on the market Cdiscount. For further information about this market, refer to the Setting up Cdiscount page of the manual.
+Items are sold on the market Cdiscount. For further information about this market, refer to the [Setting up cdiscount](https://www.plentymarkets.eu/handbuch/multi-channel/cdiscount/) page of the manual.
 
 ## Setting up the data format CdiscountCOM-Plugin in plentymarkets
 

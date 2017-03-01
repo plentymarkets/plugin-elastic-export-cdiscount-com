@@ -5,7 +5,7 @@
 
 ## Bei Cdiscount.com registrieren
 
-Auf dem Marktplatz Cdiscount bieten Sie Ihre Artikel zum Verkauf an. Weitere Informationen zu diesem Marktplatz finden Sie auf der Handbuchseite Cdiscount einrichten.
+Auf dem Marktplatz Cdiscount bieten Sie Ihre Artikel zum Verkauf an. Weitere Informationen zu diesem Marktplatz finden Sie auf der Handbuchseite [cdiscount einrichten](https://www.plentymarkets.eu/handbuch/multi-channel/cdiscount/).
 
 ## Elastic Export CdiscountCOM-Plugin in plentymarkets einrichten
 
