@@ -199,7 +199,7 @@ class CdiscountCOM extends CSVPluginGenerator
                     'Nature of product'                     =>  strlen($color) || strlen($size) ? 'variante' : 'standard',
                     'Category code'                         =>  $item['data']['defaultCategories'][0]['id'],
                     'Basket short wording'                  =>  $this->elasticExportHelper->getName($item, $settings, 256),
-                    'Basket long wording'                   =>  $item['data']['texts']['shortDescription']->itemDescription->shortDescription,
+                    'Basket long wording'                   =>  $item['data']['texts'][0]['shortDescription'],
                     'Product description'                   =>  $this->getDescription($item, $settings),
                     'Picture 1 (jpeg)'                      =>  $this->getImageByNumber($item, $settings, 1),
 
