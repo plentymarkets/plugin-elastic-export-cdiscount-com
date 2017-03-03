@@ -1,5 +1,5 @@
 
-# Cdiscount.com plugin user guide
+# ElasticExportCdiscountCOM plugin user guide
 
 <div class="container-toc"></div>
 
