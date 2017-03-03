@@ -127,12 +127,17 @@ class CdiscountCOM extends ResultFields
             ],
 
             [
-                $imageMutator,
                 $languageMutator,
                 $skuMutator,
                 $defaultCategoryMutator
             ],
         ];
+
+        if($reference != -1)
+        {
+            $fields[1][] = $imageMutator;
+        }
+
         foreach($itemDescriptionFields as $itemDescriptionField)
         {
             $fields[0][] = $itemDescriptionField;
