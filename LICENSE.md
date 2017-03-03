@@ -1,4 +1,4 @@
-plentymarkets plugin Elastic Export Cdiscount.com
+plentymarkets plugin ElasticExportCdiscountCOM
 
 Copyright © 2016 plentymarkets GmbH
 
