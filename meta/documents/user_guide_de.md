@@ -1,5 +1,5 @@
 
-# User Guide für das Elastic Export Cdiscount.com Plugin
+# User Guide für das ElasticExportCdiscountCOM Plugin
 
 <div class="container-toc"></div>
 
@@ -7,9 +7,9 @@
 
 Auf dem Marktplatz Cdiscount bieten Sie Ihre Artikel zum Verkauf an. Weitere Informationen zu diesem Marktplatz finden Sie auf der Handbuchseite [cdiscount einrichten](https://www.plentymarkets.eu/handbuch/multi-channel/cdiscount/).
 
-## Elastic Export CdiscountCOM-Plugin in plentymarkets einrichten
+## ElasticExportCdiscountCOM Plugin in plentymarkets einrichten
 
-Nachdem Sie das Elastic Export Cdiscount.com Plugin im plentyMarketplace gekauft haben, richten Sie das Exportformat wie auf der Handbuchseite [Daten exportieren](https://www.plentymarkets.eu/handbuch/datenaustausch/daten-exportieren/#4) beschrieben ein.
+Nachdem Sie das ElasticExportCdiscountCOM Plugin im plentyMarketplace gekauft haben, richten Sie das Exportformat wie auf der Handbuchseite [Daten exportieren](https://www.plentymarkets.eu/handbuch/datenaustausch/daten-exportieren/#4) beschrieben ein.
 
 ## Lizenz
 
