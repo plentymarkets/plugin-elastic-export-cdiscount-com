@@ -129,6 +129,11 @@ class CdiscountCOM extends ResultFields
                 //attributes
                 'attributes.valueId',
 
+                //properties
+                'properties.property.id',
+                'properties.property.valueType',
+                'properties.selection.name',
+                'properties.texts.value'
             ],
 
             [
