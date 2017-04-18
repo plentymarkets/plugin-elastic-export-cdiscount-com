@@ -13,7 +13,6 @@ use Plenty\Modules\Item\Attribute\Contracts\AttributeValueNameRepositoryContract
 use Plenty\Modules\Item\Attribute\Models\AttributeValueName;
 use Plenty\Modules\Item\Property\Contracts\PropertySelectionRepositoryContract;
 use Plenty\Modules\Item\Search\Contracts\VariationElasticSearchScrollRepositoryContract;
-use Plenty\Modules\StockManagement\Stock\Contracts\StockRepositoryContract;
 use Plenty\Plugin\Log\Loggable;
 
 class CdiscountCOM extends CSVPluginGenerator
@@ -33,9 +32,9 @@ class CdiscountCOM extends CSVPluginGenerator
     const CHARACTER_TYPE_SIZE                           =   'size';
 
     /**
-     * @var ElasticExportCoreHelper $elasticExportHelper
+     * @var ElasticExportCoreHelper $elasticExportCoreHelper
      */
-    private $elasticExportHelper;
+    private $elasticExportCoreHelper;
 
     /**
      * @var ArrayHelper
@@ -53,24 +52,19 @@ class CdiscountCOM extends CSVPluginGenerator
     private $propertySelectionRepository;
 
     /**
-     * @var array $idlVariations
+     * @var PropertyHelper
      */
-    private $idlVariations = array();
+    private $propertyHelper;
 
     /**
-     * @var array
+     * @var AttributeHelper
      */
-    private $propertyHelper = array();
+    private $attributeHelper;
 
     /**
-     * @var array
+     * @var StockHelper
      */
-    private $attributeHelper = array();
-
-    /**
-     * @var array
-     */
-    private $stockHelper = array();
+    private $stockHelper;
 
     /**
      * CdiscountCOM constructor.
@@ -99,19 +93,112 @@ class CdiscountCOM extends CSVPluginGenerator
     }
 
     /**
+     * Generates and populates the data into the CSV file.
+     *
      * @param VariationElasticSearchScrollRepositoryContract $elasticSearch
      * @param array $formatSettings
      * @param array $filter
      */
     protected function generatePluginContent($elasticSearch, array $formatSettings = [], array $filter = [])
     {
-        $this->elasticExportHelper = pluginApp(ElasticExportCoreHelper::class);
+        $this->elasticExportCoreHelper = pluginApp(ElasticExportCoreHelper::class);
+
         $settings = $this->arrayHelper->buildMapFromObjectList($formatSettings, 'key', 'value');
 
         $this->setDelimiter(";");
 
-        $this->addCSVContent([
-            // Required data for variations - but important for the sellers, should come first
+        $this->addCSVContent($this->head());
+
+        $startTime = microtime(true);
+
+        if($elasticSearch instanceof VariationElasticSearchScrollRepositoryContract)
+        {
+            // Initiate the counter for the variations limit
+            $limitReached = false;
+            $limit = 0;
+
+            do
+            {
+                if($limitReached === true)
+                {
+                    break;
+                }
+
+                $this->getLogger(__METHOD__)->debug('ElasticExportCdiscountCOM::logs.writtenLines', [
+                    'Lines written' => $limit,
+                ]);
+
+                $esStartTime = microtime(true);
+
+                // Get the data from Elastic Search
+                $resultList = $elasticSearch->execute();
+
+                $this->getLogger(__METHOD__)->debug('ElasticExportCdiscountCOM::logs.esDuration', [
+                    'Elastic Search duration' => microtime(true) - $esStartTime,
+                ]);
+
+                if(count($resultList['error']) > 0)
+                {
+                    $this->getLogger(__METHOD__)->error('ElasticExportCdiscountCOM::logs.occurredElasticSearchErrors', [
+                        'Error message' => $resultList['error'],
+                    ]);
+
+                    break;
+                }
+
+                $buildRowsStartTime = microtime(true);
+
+                if(is_array($resultList['documents']) && count($resultList['documents']) > 0)
+                {
+                    foreach($resultList['documents'] as $variation)
+                    {
+                        // Stop and set the flag if limit is reached
+                        if($limit == $filter['limit'])
+                        {
+                            $limitReached = true;
+                            break;
+                        }
+
+                        // If filtered by stock is set and stock is negative, then skip the variation
+                        if($this->stockHelper->isFilteredByStock($variation, $filter) === true)
+                        {
+                            $this->getLogger(__METHOD__)->info('ElasticExportCdiscountCOM::logs.variationNotPartOfExportStock', [
+                                'variationId' => (string)$variation['id']
+                            ]);
+
+                            continue;
+                        }
+
+                        // New line printed in the CSV file
+                        $this->buildRow($variation, $settings);
+
+                        // Count the new printed line
+                        $limit += 1;
+                    }
+
+                    $this->getLogger(__METHOD__)->debug('ElasticExportCdiscountCOM::logs.buildRowsDuration', [
+                        'Build rows duration' => microtime(true) - $buildRowsStartTime,
+                    ]);
+                }
+
+            } while ($elasticSearch->hasNext());
+        }
+
+        $this->getLogger(__METHOD__)->debug('ElasticExportCdiscountCOM::logs.fileGenerationDuration', [
+            'Whole file generation duration' => microtime(true) - $startTime,
+        ]);
+    }
+
+    /**
+     * Creates the Header of the CSV file.
+     *
+     * @return array
+     */
+    private function head():array
+    {
+        return array(
+            // Required data for variations
+            // important for the sellers, should come first
             'Sku parent',
 
             // Mandatory data
@@ -141,59 +228,107 @@ class CdiscountCOM extends CSVPluginGenerator
             'Height ',
             'Weight ',
 
-
             // Specific data
             'Main color',
             'Gender',
             'Type of public',
             'Sports',
             'Comment'
+        );
+    }
+
+    /**
+     * Creates the variation rows and prints them into the CSV file.
+     *
+     * @param array $variation
+     * @param KeyValue $settings
+     */
+    private function buildRow($variation, KeyValue $settings)
+    {
+        $this->getLogger(__METHOD__)->debug('ElasticExportCdiscountCOM::logs.variationConstructRow', [
+            'Data row duration' => 'Row printing start'
         ]);
 
-        if($elasticSearch instanceof VariationElasticSearchScrollRepositoryContract)
+        $rowTime = microtime(true);
+
+        try
         {
-            $limitReached = false;
-            $lines = 0;
-            do
-            {
-                if($limitReached === true)
-                {
-                    break;
-                }
+            // Get color and size attibutes or property
+            $colorAndSize = $this->getColorAndSize($variation, $settings);
 
-                $resultList = $elasticSearch->execute();
+            // Set dimensions properties
+            $lengthCm = $variation['data']['variation']['lengthMM'] / 10;
+            $widthCm  = $variation['data']['variation']['widthMM'] / 10;
+            $heightCm = $variation['data']['variation']['heightMM'] / 10;
+            $weightKg = $variation['data']['variation']['weightG'] / 1000;
 
-                foreach($resultList['documents'] as $variation)
-                {
-                    if($lines == $filter['limit'])
-                    {
-                        $limitReached = true;
-                        break;
-                    }
-                    try
-                    {
-                        if($this->stockHelper->isFilteredByStock($variation, $filter) === true)
-                        {
-                            continue;
-                        }
-                        $this->buildRow($variation, $settings);
-                        $lines = $lines +1;
-                    }
-                    catch(\Throwable $throwable)
-                    {
-                        $this->getLogger(__METHOD__)->error('ElasticExportCdiscountCOM::logs.fillRowError', [
-                            'Error message ' => $throwable->getMessage(),
-                            'Error line'    => $throwable->getLine(),
-                            'VariationId'   => $variation['id']
-                        ]);
-                    }
-                }
-            }while($elasticSearch->hasNext());
+            $data = [
+                // Required data for variations
+                // important for the sellers, should come first
+                'Sku parent'                =>  $variation['data']['item']['id'],
+
+                // Mandatory data
+                'Your reference'            =>  $variation['data']['skus']['sku'],
+                'EAN'                       =>  $this->elasticExportCoreHelper->getBarcodeByType($variation, $settings->get('barcode')),
+                'Brand'                     =>  $this->elasticExportCoreHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
+                'Nature of product'         =>  strlen($colorAndSize['color']) || strlen($colorAndSize['size']) ? 'variante' : 'standard',
+                'Category code'             =>  $variation['data']['defaultCategories'][0]['id'],
+                'Basket short wording'      =>  $this->elasticExportCoreHelper->getName($variation, $settings, 256),
+                'Basket long wording'       =>  $variation['data']['texts'][0]['shortDescription'],
+                'Product description'       =>  $this->getDescription($variation, $settings),
+                'Picture 1 (jpeg)'          =>  $this->getImageByNumber($variation, $settings, 0),
+
+                // Required data for variations
+                'Size'                      =>  $colorAndSize['size'],
+                'Marketing color'           =>  $colorAndSize['color'],
+
+                // Optional data
+                'Marketing description'     =>  $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_MARKETING_DESCRIPTION),
+                'Picture 2 (jpeg)'          =>  $this->getImageByNumber($variation, $settings, 1),
+                'Picture 3 (jpeg)'          =>  $this->getImageByNumber($variation, $settings, 2),
+                'Picture 4 (jpeg)'          =>  $this->getImageByNumber($variation, $settings, 3),
+                'ISBN / GTIN'               =>  $this->elasticExportCoreHelper->getBarcodeByType($variation, ElasticExportCoreHelper::BARCODE_ISBN),
+                'MFPN'                      =>  $variation['data']['variation']['model'],
+                'Length'                    =>  $lengthCm,
+                'Width'                     =>  $widthCm,
+                'Height'                    =>  $heightCm,
+                'Weight'                    =>  $weightKg,
+
+                // Specific data
+                'Main color'                =>  $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_MAIN_COLOR),
+                'Gender'                    =>  $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_GENDER),
+                'Type of public'            =>  $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_TYPE_OF_PUBLIC),
+                'Sports'                    =>  $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_SPORTS),
+                'Comment'                   =>  $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_COMMENT)
+            ];
+
+            $this->addCSVContent(array_values($data));
+
+            $this->getLogger(__METHOD__)->debug('ElasticExportCdiscountCOM::logs.variationConstructRowFinished', [
+                'Data row duration' => 'Row printing took: ' . (microtime(true) - $rowTime),
+            ]);
+        }
+        catch (\Throwable $throwable)
+        {
+            $this->getLogger(__METHOD__)->error('ElasticExportCdiscountCOM::logs.fillRowError', [
+                'Error message ' => $throwable->getMessage(),
+                'Error line'    => $throwable->getLine(),
+                'VariationId'   => $variation['id']
+            ]);
         }
     }
 
-    private function buildRow($variation, $settings)
+    /**
+     * Get color and size for the variation.
+     *
+     * @param array $variation
+     * @param KeyValue $settings
+     * @return array
+     */
+    private function getColorAndSize($variation, KeyValue $settings)
     {
+        $color = $size = '';
+
         $variationAttributes = $this->attributeHelper->getVariationAttributes($variation, $settings);
 
         if(count($variationAttributes['color']) > 0)
@@ -204,10 +339,6 @@ class CdiscountCOM extends CSVPluginGenerator
         {
             $color = $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_MARKETING_COLOR);
         }
-        else
-        {
-            $color = '';
-        }
 
         if(count($variationAttributes['size']) > 0)
         {
@@ -217,88 +348,43 @@ class CdiscountCOM extends CSVPluginGenerator
         {
             $size = $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_SIZE);
         }
-        else
-        {
-            $size = '';
-        }
 
-
-        $lengthCm = $variation['data']['variation']['lengthMM'] / 10;
-        $widthCm = $variation['data']['variation']['widthMM'] / 10;
-        $heightCm = $variation['data']['variation']['heightMM'] / 10;
-        $weightKg = $variation['data']['variation']['weightG'] / 1000;
-
-        $data = [
-            // Required data for variations - but important for the sellers, should come first
-            'Sku parent'                            =>  $variation['data']['item']['id'],
-
-            // Mandatory data
-            'Your reference'                        =>  $variation['data']['skus']['sku'],
-            'EAN'                                   =>  $this->elasticExportHelper->getBarcodeByType($variation, $settings->get('barcode')),
-            'Brand'                                 =>  $this->elasticExportHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
-            'Nature of product'                     =>  strlen($color) || strlen($size) ? 'variante' : 'standard',
-            'Category code'                         =>  $variation['data']['defaultCategories'][0]['id'],
-            'Basket short wording'                  =>  $this->elasticExportHelper->getName($variation, $settings, 256),
-            'Basket long wording'                   =>  $variation['data']['texts'][0]['shortDescription'],
-            'Product description'                   =>  $this->getDescription($variation, $settings),
-            'Picture 1 (jpeg)'                      =>  $this->getImageByNumber($variation, $settings, 1),
-
-            // Required data for variations
-            'Size'                                  =>  $size,
-            'Marketing color'                       =>  $color,
-
-            // Optional data
-            'Marketing description'                 =>  $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_MARKETING_DESCRIPTION),
-            'Picture 2 (jpeg)'                      =>  $this->getImageByNumber($variation, $settings, 2),
-            'Picture 3 (jpeg)'                      =>  $this->getImageByNumber($variation, $settings, 3),
-            'Picture 4 (jpeg)'                      =>  $this->getImageByNumber($variation, $settings, 4),
-            'ISBN / GTIN'                           =>  $this->elasticExportHelper->getBarcodeByType($variation, ElasticExportCoreHelper::BARCODE_ISBN),
-            'MFPN'                                  =>  $variation['data']['variation']['model'],
-            'Length'                                =>  $lengthCm,
-            'Width'                                 =>  $widthCm,
-            'Height'                                =>  $heightCm,
-            'Weight'                                =>  $weightKg,
-
-
-
-            // Specific data
-            'Main color'                            =>  $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_MAIN_COLOR),
-            'Gender'                                =>  $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_GENDER),
-            'Type of public'                        =>  $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_TYPE_OF_PUBLIC),
-            'Sports'                                =>  $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_SPORTS),
-            'Comment'                               =>  $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_COMMENT)
-        ];
-
-        $this->addCSVContent(array_values($data));
+        return array(
+            'color' => $color,
+            'size'  => $size
+        );
     }
 
     /**
-     * Get item description.
-     * @param array $item
+     * Get variation description.
+     *
+     * @param array $variation
      * @param KeyValue $settings
      * @return string
      */
-    private function getDescription($item, KeyValue $settings):string
+    private function getDescription($variation, KeyValue $settings):string
     {
-        $description = $this->elasticExportHelper->getItemCharacterByBackendName($this->idlVariations[$item['id']], $settings, self::CHARACTER_TYPE_DESCRIPTION);
+        $description = $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_DESCRIPTION);
 
         if (strlen($description) <= 0)
         {
-            $description = $this->elasticExportHelper->getDescription($item, $settings, 5000);
+            $description = $this->elasticExportCoreHelper->getDescription($variation, $settings, 5000);
         }
 
         return $description;
     }
 
     /**
-     * @param array $item
+     * Get variation image by number.
+     *
+     * @param array $variation
      * @param KeyValue $settings
      * @param int $number
      * @return string
      */
-    private function getImageByNumber($item, KeyValue $settings, int $number):string
+    private function getImageByNumber($variation, KeyValue $settings, int $number):string
     {
-        $imageList = $this->elasticExportHelper->getImageList($item, $settings);
+        $imageList = $this->elasticExportCoreHelper->getImageList($variation, $settings);
 
         if(count($imageList) > 0 && array_key_exists($number, $imageList))
         {

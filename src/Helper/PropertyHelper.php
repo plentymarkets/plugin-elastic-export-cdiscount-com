@@ -2,14 +2,16 @@
 
 namespace ElasticExportCdiscountCOM\Helper;
 
-
 use Plenty\Modules\Item\Property\Contracts\PropertyMarketReferenceRepositoryContract;
 use Plenty\Modules\Item\Property\Contracts\PropertyNameRepositoryContract;
 use Plenty\Modules\Item\Property\Models\PropertyName;
 use Plenty\Modules\Helper\Models\KeyValue;
+use Plenty\Plugin\Log\Loggable;
 
 class PropertyHelper
 {
+    use Loggable;
+
     const CDISCOUNT_COM = 143.00;
 
     /**
@@ -22,16 +24,35 @@ class PropertyHelper
     private $attributeHelper;
 
     /**
-     * PropertyHelper constructor.
-     * @param AttributeHelper $attributeHelper
+     * @var PropertyNameRepositoryContract
      */
-    public function __construct(AttributeHelper $attributeHelper)
+    private $propertyNameRepository;
+
+    /**
+     * @var PropertyMarketReferenceRepositoryContract
+     */
+    private $propertyMarketReferenceRepository;
+
+    /**
+     * PropertyHelper constructor.
+     *
+     * @param AttributeHelper $attributeHelper
+     * @param PropertyNameRepositoryContract $propertyNameRepository
+     * @param PropertyMarketReferenceRepositoryContract $propertyMarketReferenceRepository
+     */
+    public function __construct(
+        AttributeHelper $attributeHelper,
+        PropertyNameRepositoryContract $propertyNameRepository,
+        PropertyMarketReferenceRepositoryContract $propertyMarketReferenceRepository)
     {
         $this->attributeHelper = $attributeHelper;
+        $this->propertyNameRepository = $propertyNameRepository;
+        $this->propertyMarketReferenceRepository = $propertyMarketReferenceRepository;
     }
 
     /**
      * Get property.
+     *
      * @param  array   $item
      * @param  KeyValue $settings
      * @param  string   $property
@@ -68,22 +89,6 @@ class PropertyHelper
     {
         if(!array_key_exists($variation['data']['item']['id'], $this->itemPropertyCache))
         {
-            /**
-             * @var PropertyNameRepositoryContract $propertyNameRepository
-             */
-            $propertyNameRepository = pluginApp(PropertyNameRepositoryContract::class);
-
-            /**
-             * @var PropertyMarketReferenceRepositoryContract $propertyMarketReferenceRepository
-             */
-            $propertyMarketReferenceRepository = pluginApp(PropertyMarketReferenceRepositoryContract::class);
-
-            if(!$propertyNameRepository instanceof PropertyNameRepositoryContract ||
-                !$propertyMarketReferenceRepository instanceof PropertyMarketReferenceRepositoryContract)
-            {
-                return [];
-            }
-
             $list = array();
 
             foreach($variation['data']['properties'] as $property)
@@ -92,18 +97,16 @@ class PropertyHelper
                     $property['property']['valueType'] != 'file' &&
                     $property['property']['valueType'] != 'empty')
                 {
-                    $propertyName = $propertyNameRepository->findOne($property['property']['id'], 'de');
-                    $propertyMarketReference = $propertyMarketReferenceRepository->findOne($property['property']['id'], self::CDISCOUNT_COM);
+                    $propertyName = $this->propertyNameRepository->findOne($property['property']['id'], 'de');
+                    $propertyMarketReference = $this->propertyMarketReferenceRepository->findOne($property['property']['id'], self::CDISCOUNT_COM);
 
                     if(!($propertyName instanceof PropertyName) ||
                         is_null($propertyName) ||
                         is_null($propertyMarketReference) ||
-                        $propertyMarketReference->externalComponent == '0'
-                    )
+                        $propertyMarketReference->externalComponent == '0')
                     {
                         continue;
                     }
-
 
                     if($property['property']['valueType'] == 'text')
                     {
@@ -112,6 +115,7 @@ class PropertyHelper
                             $list[(string)$propertyMarketReference->externalComponent] = $property['texts'][0]['value'];
                         }
                     }
+
                     if($property['property']['valueType'] == 'selection')
                     {
                         if(is_array($property['selection']))
@@ -121,8 +125,10 @@ class PropertyHelper
                     }
                 }
             }
+
             $this->itemPropertyCache[$variation['data']['item']['id']] = $list;
         }
+
         return $this->itemPropertyCache[$variation['data']['item']['id']];
     }
 }

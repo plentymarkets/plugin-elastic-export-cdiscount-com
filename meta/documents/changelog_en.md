@@ -1,5 +1,12 @@
 # Release Notes for Elastic Export Cdiscount.com
 
+## v1.0.3 (2017-04-19)
+
+### Fixed
+- Try-catch to catch errors now works as intended.
+- The format plugin is now only based on Elastic Search.
+- The performance has been improved.
+
 ## v1.0.2 (2017-03-22)
 
 ### Fixed
