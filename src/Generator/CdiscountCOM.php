@@ -268,7 +268,7 @@ class CdiscountCOM extends CSVPluginGenerator
                 'Sku parent'                =>  $variation['data']['item']['id'],
 
                 // Mandatory data
-                'Your reference'            =>  $variation['data']['skus']['sku'],
+                'Your reference'            =>  $this->getSku($variation),
                 'EAN'                       =>  $this->elasticExportCoreHelper->getBarcodeByType($variation, $settings->get('barcode')),
                 'Brand'                     =>  $this->elasticExportCoreHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
                 'Nature of product'         =>  strlen($colorAndSize['color']) || strlen($colorAndSize['size']) ? 'variante' : 'standard',
@@ -316,6 +316,26 @@ class CdiscountCOM extends CSVPluginGenerator
                 'VariationId'   => $variation['id']
             ]);
         }
+    }
+
+    /**
+     * Get the sku for the variation.
+     *
+     * @param $variation
+     * @return string
+     */
+    private function getSku($variation):string
+    {
+        if(isset($variation['data']['skus']) && count($variation['data']['skus']) > 0)
+        {
+            $sku = array_shift($variation['data']['skus']);
+            if(isset($sku) && strlen($sku['sku']) > 0)
+            {
+                return $sku['sku'];
+            }
+        }
+
+        return $this->elasticExportCoreHelper->generateSku($variation['id'], self::CDISCOUNT_COM, 0, $variation['id']);
     }
 
     /**
