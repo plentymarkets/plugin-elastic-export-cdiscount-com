@@ -12,6 +12,8 @@ class StockHelper
 {
     use Loggable;
 
+    const STOCK_WAREHOUSE_TYPE = 'sales';
+
     /**
      * Checks if variation is filtered by stock.
      *
@@ -58,6 +60,22 @@ class StockHelper
      */
     private function isStockNegative($variation):bool
     {
+        if($this->getStock($variation) <= 0)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get the stock for the variation.
+     *
+     * @param $variation
+     * @return int
+     */
+    private function getStock($variation):int
+    {
         $stock = 0;
 
         /**
@@ -68,7 +86,7 @@ class StockHelper
         if($stockRepositoryContract instanceof StockRepositoryContract)
         {
             $stockRepositoryContract->setFilters(['variationId' => $variation['id']]);
-            $stockResult = $stockRepositoryContract->listStockByWarehouseType('sales', ['stockNet'], 1, 1);
+            $stockResult = $stockRepositoryContract->listStockByWarehouseType(self::STOCK_WAREHOUSE_TYPE, ['stockNet'], 1, 1);
 
             if($stockResult instanceof PaginatedResult)
             {
@@ -87,11 +105,6 @@ class StockHelper
             }
         }
 
-        if($stock <= 0)
-        {
-            return true;
-        }
-
-        return false;
+        return $stock;
     }
 }

@@ -32,9 +32,9 @@ class CdiscountCOM extends CSVPluginGenerator
     const CHARACTER_TYPE_SIZE                           =   'size';
 
     /**
-     * @var ElasticExportCoreHelper $elasticExportCoreHelper
+     * @var ElasticExportCoreHelper $elasticExportHelper
      */
-    private $elasticExportCoreHelper;
+    private $elasticExportHelper;
 
     /**
      * @var ArrayHelper
@@ -101,7 +101,7 @@ class CdiscountCOM extends CSVPluginGenerator
      */
     protected function generatePluginContent($elasticSearch, array $formatSettings = [], array $filter = [])
     {
-        $this->elasticExportCoreHelper = pluginApp(ElasticExportCoreHelper::class);
+        $this->elasticExportHelper = pluginApp(ElasticExportCoreHelper::class);
 
         $settings = $this->arrayHelper->buildMapFromObjectList($formatSettings, 'key', 'value');
 
@@ -190,7 +190,7 @@ class CdiscountCOM extends CSVPluginGenerator
     }
 
     /**
-     * Creates the Header of the CSV file.
+     * Creates the header of the CSV file.
      *
      * @return array
      */
@@ -269,11 +269,11 @@ class CdiscountCOM extends CSVPluginGenerator
 
                 // Mandatory data
                 'Your reference'            =>  $this->getSku($variation),
-                'EAN'                       =>  $this->elasticExportCoreHelper->getBarcodeByType($variation, $settings->get('barcode')),
-                'Brand'                     =>  $this->elasticExportCoreHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
+                'EAN'                       =>  $this->elasticExportHelper->getBarcodeByType($variation, $settings->get('barcode')),
+                'Brand'                     =>  $this->elasticExportHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
                 'Nature of product'         =>  strlen($colorAndSize['color']) || strlen($colorAndSize['size']) ? 'variante' : 'standard',
                 'Category code'             =>  $variation['data']['defaultCategories'][0]['id'],
-                'Basket short wording'      =>  $this->elasticExportCoreHelper->getName($variation, $settings, 256),
+                'Basket short wording'      =>  $this->elasticExportHelper->getName($variation, $settings, 256),
                 'Basket long wording'       =>  $variation['data']['texts'][0]['shortDescription'],
                 'Product description'       =>  $this->getDescription($variation, $settings),
                 'Picture 1 (jpeg)'          =>  $this->getImageByNumber($variation, $settings, 0),
@@ -287,7 +287,7 @@ class CdiscountCOM extends CSVPluginGenerator
                 'Picture 2 (jpeg)'          =>  $this->getImageByNumber($variation, $settings, 1),
                 'Picture 3 (jpeg)'          =>  $this->getImageByNumber($variation, $settings, 2),
                 'Picture 4 (jpeg)'          =>  $this->getImageByNumber($variation, $settings, 3),
-                'ISBN / GTIN'               =>  $this->elasticExportCoreHelper->getBarcodeByType($variation, ElasticExportCoreHelper::BARCODE_ISBN),
+                'ISBN / GTIN'               =>  $this->elasticExportHelper->getBarcodeByType($variation, ElasticExportCoreHelper::BARCODE_ISBN),
                 'MFPN'                      =>  $variation['data']['variation']['model'],
                 'Length'                    =>  $lengthCm,
                 'Width'                     =>  $widthCm,
@@ -335,7 +335,7 @@ class CdiscountCOM extends CSVPluginGenerator
             }
         }
 
-        return $this->elasticExportCoreHelper->generateSku($variation['id'], self::CDISCOUNT_COM, 0, $variation['id']);
+        return $this->elasticExportHelper->generateSku($variation['id'], self::CDISCOUNT_COM, 0, $variation['id']);
     }
 
     /**
@@ -388,7 +388,7 @@ class CdiscountCOM extends CSVPluginGenerator
 
         if (strlen($description) <= 0)
         {
-            $description = $this->elasticExportCoreHelper->getDescription($variation, $settings, 5000);
+            $description = $this->elasticExportHelper->getDescription($variation, $settings, 5000);
         }
 
         return $description;
@@ -404,7 +404,7 @@ class CdiscountCOM extends CSVPluginGenerator
      */
     private function getImageByNumber($variation, KeyValue $settings, int $number):string
     {
-        $imageList = $this->elasticExportCoreHelper->getImageList($variation, $settings);
+        $imageList = $this->elasticExportHelper->getImageList($variation, $settings);
 
         if(count($imageList) > 0 && array_key_exists($number, $imageList))
         {

@@ -14,6 +14,9 @@ class PropertyHelper
 
     const CDISCOUNT_COM = 143.00;
 
+    const PROPERTY_TYPE_TEXT = 'text';
+    const PROPERTY_TYPE_SELECTION = 'selection';
+
     /**
      * @var array
      */
@@ -53,21 +56,14 @@ class PropertyHelper
     /**
      * Get property.
      *
-     * @param  array   $item
+     * @param  array   $variation
      * @param  KeyValue $settings
      * @param  string   $property
      * @return string
      */
-    public function getProperty($item, KeyValue $settings, string $property):string
+    public function getProperty($variation, KeyValue $settings, string $property):string
     {
-        $variationAttributes = $this->attributeHelper->getVariationAttributes($item, $settings);
-
-        if(array_key_exists($property, $variationAttributes))
-        {
-            return $variationAttributes[$property];
-        }
-
-        $itemPropertyList = $this->getItemPropertyList($item);
+        $itemPropertyList = $this->getItemPropertyList($variation, $settings->get('lang'));
 
         if(array_key_exists($property, $itemPropertyList))
         {
@@ -78,14 +74,14 @@ class PropertyHelper
     }
 
     /**
-     * Returns a list of additional header for the CSV based on
-     * the configured properties and builds also the property data for
-     * further usage. The properties have to have a configuration for BeezUp.
+     * Returns a list of additional configured properties for further usage.
+     * The properties have to have a configuration for Cdiscount.com.
      *
      * @param array $variation
+     * @param string $lang
      * @return array
      */
-    private function getItemPropertyList($variation):array
+    private function getItemPropertyList($variation, $lang = 'de'):array
     {
         if(!array_key_exists($variation['data']['item']['id'], $this->itemPropertyCache))
         {
@@ -97,7 +93,7 @@ class PropertyHelper
                     $property['property']['valueType'] != 'file' &&
                     $property['property']['valueType'] != 'empty')
                 {
-                    $propertyName = $this->propertyNameRepository->findOne($property['property']['id'], 'de');
+                    $propertyName = $this->propertyNameRepository->findOne($property['property']['id'], $lang);
                     $propertyMarketReference = $this->propertyMarketReferenceRepository->findOne($property['property']['id'], self::CDISCOUNT_COM);
 
                     if(!($propertyName instanceof PropertyName) ||
@@ -108,7 +104,7 @@ class PropertyHelper
                         continue;
                     }
 
-                    if($property['property']['valueType'] == 'text')
+                    if($property['property']['valueType'] == self::PROPERTY_TYPE_TEXT)
                     {
                         if(is_array($property['texts']))
                         {
@@ -116,7 +112,7 @@ class PropertyHelper
                         }
                     }
 
-                    if($property['property']['valueType'] == 'selection')
+                    if($property['property']['valueType'] == self::PROPERTY_TYPE_SELECTION)
                     {
                         if(is_array($property['selection']))
                         {
