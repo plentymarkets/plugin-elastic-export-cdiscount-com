@@ -9,9 +9,6 @@ use ElasticExportCdiscountCOM\Helper\StockHelper;
 use Plenty\Modules\DataExchange\Contracts\CSVPluginGenerator;
 use Plenty\Modules\Helper\Models\KeyValue;
 use Plenty\Modules\Helper\Services\ArrayHelper;
-use Plenty\Modules\Item\Attribute\Contracts\AttributeValueNameRepositoryContract;
-use Plenty\Modules\Item\Attribute\Models\AttributeValueName;
-use Plenty\Modules\Item\Property\Contracts\PropertySelectionRepositoryContract;
 use Plenty\Modules\Item\Search\Contracts\VariationElasticSearchScrollRepositoryContract;
 use Plenty\Plugin\Log\Loggable;
 
@@ -42,16 +39,6 @@ class CdiscountCOM extends CSVPluginGenerator
     private $arrayHelper;
 
     /**
-     * AttributeValueNameRepositoryContract $attributeValueNameRepository
-     */
-    private $attributeValueNameRepository;
-
-    /**
-     * PropertySelectionRepositoryContract $propertySelectionRepository
-     */
-    private $propertySelectionRepository;
-
-    /**
      * @var PropertyHelper
      */
     private $propertyHelper;
@@ -69,24 +56,18 @@ class CdiscountCOM extends CSVPluginGenerator
     /**
      * CdiscountCOM constructor.
      * @param ArrayHelper $arrayHelper
-     * @param AttributeValueNameRepositoryContract $attributeValueNameRepository
-     * @param PropertySelectionRepositoryContract $propertySelectionRepository
      * @param PropertyHelper $propertyHelper
      * @param AttributeHelper $attributeHelper
      * @param StockHelper $stockHelper
      */
     public function __construct(
         ArrayHelper $arrayHelper,
-        AttributeValueNameRepositoryContract $attributeValueNameRepository,
-        PropertySelectionRepositoryContract $propertySelectionRepository,
         PropertyHelper $propertyHelper,
         AttributeHelper $attributeHelper,
         StockHelper $stockHelper
     )
     {
         $this->arrayHelper = $arrayHelper;
-        $this->attributeValueNameRepository = $attributeValueNameRepository;
-        $this->propertySelectionRepository = $propertySelectionRepository;
         $this->propertyHelper = $propertyHelper;
         $this->attributeHelper = $attributeHelper;
         $this->stockHelper = $stockHelper;

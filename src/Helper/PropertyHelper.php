@@ -21,10 +21,6 @@ class PropertyHelper
      * @var array
      */
     private $itemPropertyCache = [];
-    /**
-     * @var AttributeHelper
-     */
-    private $attributeHelper;
 
     /**
      * @var PropertyNameRepositoryContract
@@ -39,16 +35,13 @@ class PropertyHelper
     /**
      * PropertyHelper constructor.
      *
-     * @param AttributeHelper $attributeHelper
      * @param PropertyNameRepositoryContract $propertyNameRepository
      * @param PropertyMarketReferenceRepositoryContract $propertyMarketReferenceRepository
      */
     public function __construct(
-        AttributeHelper $attributeHelper,
         PropertyNameRepositoryContract $propertyNameRepository,
         PropertyMarketReferenceRepositoryContract $propertyMarketReferenceRepository)
     {
-        $this->attributeHelper = $attributeHelper;
         $this->propertyNameRepository = $propertyNameRepository;
         $this->propertyMarketReferenceRepository = $propertyMarketReferenceRepository;
     }
