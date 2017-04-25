@@ -17,6 +17,8 @@ class CdiscountCOM extends CSVPluginGenerator
     use Loggable;
 
     const CDISCOUNT_COM = 143.00;
+    const DELIMITER = ";";
+
     const CHARACTER_TYPE_DESCRIPTION				    =   'description';
     const CHARACTER_TYPE_GENDER                         =   'gender';
     const CHARACTER_TYPE_TYPE_OF_PUBLIC                 =   'type_of_public';
@@ -86,7 +88,7 @@ class CdiscountCOM extends CSVPluginGenerator
 
         $settings = $this->arrayHelper->buildMapFromObjectList($formatSettings, 'key', 'value');
 
-        $this->setDelimiter(";");
+        $this->setDelimiter(self::DELIMITER);
 
         $this->addCSVContent($this->head());
 
@@ -292,7 +294,7 @@ class CdiscountCOM extends CSVPluginGenerator
         catch (\Throwable $throwable)
         {
             $this->getLogger(__METHOD__)->error('ElasticExportCdiscountCOM::logs.fillRowError', [
-                'Error message ' => $throwable->getMessage(),
+                'Error message' => $throwable->getMessage(),
                 'Error line'    => $throwable->getLine(),
                 'VariationId'   => $variation['id']
             ]);
