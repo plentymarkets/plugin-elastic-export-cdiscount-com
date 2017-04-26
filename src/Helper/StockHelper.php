@@ -14,7 +14,17 @@ class StockHelper
 
     const STOCK_WAREHOUSE_TYPE = 'sales';
 
-    /**
+	/**
+	 * @var StockRepositoryContract $stockRepositoryContract
+	 */
+    private $stockRepository;
+
+    public function __construct(StockRepositoryContract $stockRepositoryContract)
+	{
+		$this->stockRepository = $stockRepositoryContract;
+	}
+
+	/**
      * Checks if variation is filtered by stock.
      *
      * @param array $variation
@@ -78,15 +88,10 @@ class StockHelper
     {
         $stock = 0;
 
-        /**
-         * StockRepositoryContract $stockRepositoryContract
-         */
-        $stockRepositoryContract = pluginApp(StockRepositoryContract::class);
-
-        if($stockRepositoryContract instanceof StockRepositoryContract)
+        if($this->stockRepository instanceof StockRepositoryContract)
         {
-            $stockRepositoryContract->setFilters(['variationId' => $variation['id']]);
-            $stockResult = $stockRepositoryContract->listStockByWarehouseType(self::STOCK_WAREHOUSE_TYPE, ['stockNet'], 1, 1);
+			$this->stockRepository->setFilters(['variationId' => $variation['id']]);
+            $stockResult = $this->stockRepository->listStockByWarehouseType(self::STOCK_WAREHOUSE_TYPE, ['stockNet'], 1, 1);
 
             if($stockResult instanceof PaginatedResult)
             {
