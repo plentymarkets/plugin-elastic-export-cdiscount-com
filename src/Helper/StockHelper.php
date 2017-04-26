@@ -19,6 +19,11 @@ class StockHelper
 	 */
     private $stockRepository;
 
+    /**
+     * StockHelper constructor.
+     *
+     * @param StockRepositoryContract $stockRepositoryContract
+     */
     public function __construct(StockRepositoryContract $stockRepositoryContract)
 	{
 		$this->stockRepository = $stockRepositoryContract;
