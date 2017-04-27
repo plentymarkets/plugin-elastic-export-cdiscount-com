@@ -19,6 +19,7 @@ class ElasticExportCdiscountCOMServiceProvider extends DataExchangeServiceProvid
             'ElasticExportCdiscountCOM\ResultField\CdiscountCOM',
             'ElasticExportCdiscountCOM\Generator\CdiscountCOM',
             '',
+            true,
             true
         );
     }

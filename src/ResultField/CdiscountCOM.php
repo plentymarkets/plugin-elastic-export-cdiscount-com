@@ -7,6 +7,7 @@ use Plenty\Modules\DataExchange\Models\FormatSetting;
 use Plenty\Modules\Helper\Services\ArrayHelper;
 use Plenty\Modules\Item\Search\Mutators\ImageMutator;
 use Plenty\Modules\Cloud\ElasticSearch\Lib\Source\Mutator\BuiltIn\LanguageMutator;
+use Plenty\Modules\Item\Search\Mutators\KeyMutator;
 use Plenty\Modules\Item\Search\Mutators\SkuMutator;
 use Plenty\Modules\Item\Search\Mutators\DefaultCategoryMutator;
 
@@ -14,12 +15,14 @@ class CdiscountCOM extends ResultFields
 {
     const CDISCOUNT_COM = 143.00;
 
-    /*
+    /**
      * @var ArrayHelper
      */
     private $arrayHelper;
 
     /**
+     * CdiscountCOM constructor.
+     *
      * @param ArrayHelper $arrayHelper
      */
     public function __construct(ArrayHelper $arrayHelper)
@@ -27,6 +30,12 @@ class CdiscountCOM extends ResultFields
         $this->arrayHelper = $arrayHelper;
     }
 
+    /**
+     * Creates the fields set to be retrieved from ElasticSearch.
+     *
+     * @param array $formatSettings
+     * @return array
+     */
     public function generateResultFields(array $formatSettings = []):array
     {
         $settings = $this->arrayHelper->buildMapFromObjectList($formatSettings, 'key', 'value');
@@ -61,10 +70,23 @@ class CdiscountCOM extends ResultFields
         {
             $imageMutator->addMarket($reference);
         }
+
+        /**
+         * @var KeyMutator
+         */
+        $keyMutator = pluginApp(KeyMutator::class);
+
+        if($keyMutator instanceof KeyMutator)
+        {
+            $keyMutator->setKeyList($this->getKeyList());
+            $keyMutator->setNestedKeyList($this->getNestedKeyList());
+        }
+
         /**
          * @var LanguageMutator $languageMutator
          */
         $languageMutator = pluginApp(LanguageMutator::class, [[$settings->get('lang')]]);
+
         /**
          * @var SkuMutator $skuMutator
          */
@@ -73,6 +95,7 @@ class CdiscountCOM extends ResultFields
         {
             $skuMutator->setMarket($reference);
         }
+
         /**
          * @var DefaultCategoryMutator $defaultCategoryMutator
          */
@@ -95,6 +118,7 @@ class CdiscountCOM extends ResultFields
                 'variation.heightMM',
                 'variation.weightG',
                 'variation.widthMM',
+                'variation.stockLimitation',
 
                 //images
                 'images.item.urlMiddle',
@@ -115,7 +139,7 @@ class CdiscountCOM extends ResultFields
                 'unit.content',
                 'unit.id',
 
-                //sku
+                //skus
                 'skus.sku',
 
                 //defaultCategories
@@ -129,11 +153,17 @@ class CdiscountCOM extends ResultFields
                 //attributes
                 'attributes.valueId',
 
+                //properties
+                'properties.property.id',
+                'properties.property.valueType',
+                'properties.selection.name',
+                'properties.texts.value'
             ],
 
             [
                 $languageMutator,
                 $skuMutator,
+                $keyMutator,
                 $defaultCategoryMutator
             ],
         ];
@@ -149,5 +179,127 @@ class CdiscountCOM extends ResultFields
         }
 
         return $fields;
+    }
+
+    /**
+     * Returns the list of keys.
+     *
+     * @return array
+     */
+    private function getKeyList()
+    {
+        $keyList = [
+            //item
+            'item.id',
+            'item.manufacturer.id',
+
+            //variation
+            'variation.model',
+            'variation.lengthMM',
+            'variation.heightMM',
+            'variation.weightG',
+            'variation.widthMM',
+            'variation.stockLimitation',
+
+            //unit
+            'unit.content',
+            'unit.id',
+        ];
+
+        return $keyList;
+    }
+
+    /**
+     * Returns the list of nested keys.
+     *
+     * @return mixed
+     */
+    private function getNestedKeyList()
+    {
+        $nestedKeyList['keys'] = [
+            //images
+            'images.item',
+            'images.variation',
+
+            //skus
+            'skus',
+
+            //texts
+            'texts',
+
+            //defaultCategories
+            'defaultCategories',
+
+            //barcodes
+            'barcodes',
+
+            //attributes
+            'attributes',
+
+            //properties
+            'properties',
+        ];
+
+        $nestedKeyList['nestedKeys'] = [
+            //images
+            'images.item' => [
+                'urlMiddle',
+                'urlPreview',
+                'urlSecondPreview',
+                'url',
+                'path',
+                'position',
+            ],
+            'images.variation' => [
+                'urlMiddle',
+                'urlPreview',
+                'urlSecondPreview',
+                'url',
+                'path',
+                'position',
+            ],
+
+            //skus
+            'skus' => [
+                'sku',
+            ],
+
+            //texts
+            'texts'  => [
+                'urlPath',
+                'name1',
+                'name2',
+                'name3',
+                'shortDescription',
+                'description',
+                'technicalData',
+            ],
+
+            //defaultCategories
+            'defaultCategories' => [
+                'id',
+            ],
+
+            //barcodes
+            'barcodes'  => [
+                'code',
+                'type',
+            ],
+
+            //attributes
+            'attributes'   => [
+                'valueId',
+            ],
+
+            //proprieties
+            'properties'    => [
+                'property.id',
+                'property.valueType',
+                'selection.name',
+                'texts.value',
+            ]
+        ];
+
+        return $nestedKeyList;
     }
 }
