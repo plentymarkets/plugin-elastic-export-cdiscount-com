@@ -1,5 +1,10 @@
 # Release Notes für Elastic Export Cdiscount.com
 
+## v1.0.4 (2017-05-02)
+
+### Geändert
+- Die Bestandsfilterlogik wurde in den Elastic Export ausgelagert.
+
 ## v1.0.3 (2017-04-19)
 
 ### Behoben

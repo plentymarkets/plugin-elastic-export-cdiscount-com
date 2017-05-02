@@ -1,5 +1,10 @@
 # Release Notes for Elastic Export Cdiscount.com
 
+## v1.0.4 (2017-05-02)
+
+### Changed
+- Outsourced the stock filter logic to the Elastic Export-Plugin.
+
 ## v1.0.3 (2017-04-19)
 
 ### Fixed

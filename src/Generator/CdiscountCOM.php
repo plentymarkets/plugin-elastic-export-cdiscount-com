@@ -3,9 +3,9 @@
 namespace ElasticExportCdiscountCOM\Generator;
 
 use ElasticExport\Helper\ElasticExportCoreHelper;
+use ElasticExport\Helper\ElasticExportStockHelper;
 use ElasticExportCdiscountCOM\Helper\AttributeHelper;
 use ElasticExportCdiscountCOM\Helper\PropertyHelper;
-use ElasticExportCdiscountCOM\Helper\StockHelper;
 use Plenty\Modules\DataExchange\Contracts\CSVPluginGenerator;
 use Plenty\Modules\Helper\Models\KeyValue;
 use Plenty\Modules\Helper\Services\ArrayHelper;
@@ -50,29 +50,29 @@ class CdiscountCOM extends CSVPluginGenerator
      */
     private $attributeHelper;
 
-    /**
-     * @var StockHelper
-     */
-    private $stockHelper;
+	/**
+	 * @var ElasticExportStockHelper $elasticExportStockHelper
+	 */
+	private $elasticExportStockHelper;
 
-    /**
-     * CdiscountCOM constructor.
-     * @param ArrayHelper $arrayHelper
-     * @param PropertyHelper $propertyHelper
-     * @param AttributeHelper $attributeHelper
-     * @param StockHelper $stockHelper
-     */
+	/**
+	 * CdiscountCOM constructor.
+	 * @param ArrayHelper $arrayHelper
+	 * @param PropertyHelper $propertyHelper
+	 * @param AttributeHelper $attributeHelper
+	 * @param ElasticExportStockHelper $elasticExportStockHelper
+	 */
     public function __construct(
         ArrayHelper $arrayHelper,
         PropertyHelper $propertyHelper,
         AttributeHelper $attributeHelper,
-        StockHelper $stockHelper
+		ElasticExportStockHelper $elasticExportStockHelper
     )
     {
         $this->arrayHelper = $arrayHelper;
         $this->propertyHelper = $propertyHelper;
         $this->attributeHelper = $attributeHelper;
-        $this->stockHelper = $stockHelper;
+		$this->elasticExportStockHelper = $elasticExportStockHelper;
     }
 
     /**
@@ -143,7 +143,7 @@ class CdiscountCOM extends CSVPluginGenerator
                         }
 
                         // If filtered by stock is set and stock is negative, then skip the variation
-                        if($this->stockHelper->isFilteredByStock($variation, $filter) === true)
+                        if($this->elasticExportStockHelper->isFilteredByStock($variation, $filter) === true)
                         {
                             $this->getLogger(__METHOD__)->info('ElasticExportCdiscountCOM::logs.variationNotPartOfExportStock', [
                                 'variationId' => (string)$variation['id']
