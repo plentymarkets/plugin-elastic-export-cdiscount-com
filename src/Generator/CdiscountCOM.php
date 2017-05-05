@@ -60,19 +60,16 @@ class CdiscountCOM extends CSVPluginGenerator
 	 * @param ArrayHelper $arrayHelper
 	 * @param PropertyHelper $propertyHelper
 	 * @param AttributeHelper $attributeHelper
-	 * @param ElasticExportStockHelper $elasticExportStockHelper
 	 */
     public function __construct(
         ArrayHelper $arrayHelper,
         PropertyHelper $propertyHelper,
-        AttributeHelper $attributeHelper,
-		ElasticExportStockHelper $elasticExportStockHelper
+        AttributeHelper $attributeHelper
     )
     {
         $this->arrayHelper = $arrayHelper;
         $this->propertyHelper = $propertyHelper;
         $this->attributeHelper = $attributeHelper;
-		$this->elasticExportStockHelper = $elasticExportStockHelper;
     }
 
     /**
@@ -84,6 +81,7 @@ class CdiscountCOM extends CSVPluginGenerator
      */
     protected function generatePluginContent($elasticSearch, array $formatSettings = [], array $filter = [])
     {
+		$this->elasticExportStockHelper = pluginApp(ElasticExportStockHelper::class);
         $this->elasticExportHelper = pluginApp(ElasticExportCoreHelper::class);
 
         $settings = $this->arrayHelper->buildMapFromObjectList($formatSettings, 'key', 'value');
