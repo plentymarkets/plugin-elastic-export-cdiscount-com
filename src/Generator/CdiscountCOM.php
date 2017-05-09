@@ -254,8 +254,8 @@ class CdiscountCOM extends CSVPluginGenerator
                 'Brand'                     =>  $this->elasticExportHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
                 'Nature of product'         =>  strlen($colorAndSize['color']) || strlen($colorAndSize['size']) ? 'variante' : 'standard',
                 'Category code'             =>  $variation['data']['defaultCategories'][0]['id'],
-                'Basket short wording'      =>  $this->elasticExportHelper->getName($variation, $settings, 256),
-                'Basket long wording'       =>  $variation['data']['texts'][0]['shortDescription'],
+                'Basket short wording'      =>  $this->elasticExportHelper->getMutatedName($variation, $settings, 256),
+                'Basket long wording'       =>  $variation['data']['texts']['shortDescription'],
                 'Product description'       =>  $this->getDescription($variation, $settings),
                 'Picture 1 (jpeg)'          =>  $this->getImageByNumber($variation, $settings, 0),
 
@@ -369,7 +369,7 @@ class CdiscountCOM extends CSVPluginGenerator
 
         if (strlen($description) <= 0)
         {
-            $description = $this->elasticExportHelper->getDescription($variation, $settings, 5000);
+            $description = $this->elasticExportHelper->getMutatedDescription($variation, $settings, 5000);
         }
 
         return $description;

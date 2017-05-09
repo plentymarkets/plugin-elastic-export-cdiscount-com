@@ -1,5 +1,10 @@
 # Release Notes für Elastic Export Cdiscount.com
 
+## v1.0.6 (2017-05-09)
+
+### Behoben
+- Es wurde ein Fehler behoben, der dazu geführt hat, dass der Text teilweise nicht in der eingestellten Sprache ausgelesen wurde.
+
 ## v1.0.5 (2017-05-05)
 
 ### Behoben
