@@ -42,25 +42,42 @@ class CdiscountCOM extends ResultFields
 
         $reference = $settings->get('referrerId') ? $settings->get('referrerId') : self::CDISCOUNT_COM;
 
-        $itemDescriptionFields = ['texts.urlPath'];
+		$itemDescriptionFields = ['texts.urlPath', 'texts.lang'];
 
-        switch($settings->get('nameId'))
-        {
-            case 1:
-                $itemDescriptionFields[] = 'texts.name1';
-                break;
-            case 2:
-                $itemDescriptionFields[] = 'texts.name2';
-                break;
-            case 3:
-                $itemDescriptionFields[] = 'texts.name3';
-                break;
-            default:
-                $itemDescriptionFields[] = 'texts.name1';
-                break;
-        }
+		switch($settings->get('nameId'))
+		{
+			case 1:
+				$itemDescriptionFields[] = 'texts.name1';
+				break;
 
-        $itemDescriptionFields = array_merge($itemDescriptionFields, ['texts.shortDescription', 'texts.description', 'texts.technicalData']);
+			case 2:
+				$itemDescriptionFields[] = 'texts.name2';
+				break;
+
+			case 3:
+				$itemDescriptionFields[] = 'texts.name3';
+				break;
+
+			default:
+				$itemDescriptionFields[] = 'texts.name1';
+				break;
+		}
+
+		if($settings->get('descriptionType') == 'itemShortDescription'
+			|| $settings->get('previewTextType') == 'itemShortDescription')
+		{
+			$itemDescriptionFields[] = 'texts.shortDescription';
+		}
+
+		if($settings->get('descriptionType') == 'itemDescription'
+			|| $settings->get('descriptionType') == 'itemDescriptionAndTechnicalData'
+			|| $settings->get('previewTextType') == 'itemDescription'
+			|| $settings->get('previewTextType') == 'itemDescriptionAndTechnicalData')
+		{
+			$itemDescriptionFields[] = 'texts.description';
+		}
+		
+		$itemDescriptionFields[] = 'texts.technicalData';
 
         /**
          * @var ImageMutator $imageMutator

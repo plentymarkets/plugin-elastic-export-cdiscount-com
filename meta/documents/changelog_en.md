@@ -1,5 +1,10 @@
 # Release Notes for Elastic Export Cdiscount.com
 
+## v1.0.6 (2017-05-09)
+
+### Fixed
+- An issue was fixed which caused the exported text not to be in the language which was set at the configuration.
+
 ## v1.0.5 (2017-05-05)
 
 ### Fixed
