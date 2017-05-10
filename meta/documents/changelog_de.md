@@ -1,5 +1,10 @@
 # Release Notes für Elastic Export Cdiscount.com
 
+## v1.0.7 (2017-05-10)
+
+### Behoben
+- Es wurde ein Fehler behoben, der dazu geführt hat, dass die Bilder nicht anhand der Positionen ausgeben wurden.
+
 ## v1.0.6 (2017-05-09)
 
 ### Behoben

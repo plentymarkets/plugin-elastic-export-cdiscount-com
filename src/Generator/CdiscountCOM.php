@@ -56,6 +56,11 @@ class CdiscountCOM extends CSVPluginGenerator
 	private $elasticExportStockHelper;
 
 	/**
+	 * @var array
+	 */
+	private $imageCache;
+
+	/**
 	 * CdiscountCOM constructor.
 	 * @param ArrayHelper $arrayHelper
 	 * @param PropertyHelper $propertyHelper
@@ -257,7 +262,7 @@ class CdiscountCOM extends CSVPluginGenerator
                 'Basket short wording'      =>  $this->elasticExportHelper->getMutatedName($variation, $settings, 256),
                 'Basket long wording'       =>  $variation['data']['texts']['shortDescription'],
                 'Product description'       =>  $this->getDescription($variation, $settings),
-                'Picture 1 (jpeg)'          =>  $this->getImageByNumber($variation, $settings, 0),
+                'Picture 1 (jpeg)'          =>  $this->getImageByNumber($variation, 0),
 
                 // Required data for variations
                 'Size'                      =>  $colorAndSize['size'],
@@ -265,9 +270,9 @@ class CdiscountCOM extends CSVPluginGenerator
 
                 // Optional data
                 'Marketing description'     =>  $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_MARKETING_DESCRIPTION),
-                'Picture 2 (jpeg)'          =>  $this->getImageByNumber($variation, $settings, 1),
-                'Picture 3 (jpeg)'          =>  $this->getImageByNumber($variation, $settings, 2),
-                'Picture 4 (jpeg)'          =>  $this->getImageByNumber($variation, $settings, 3),
+                'Picture 2 (jpeg)'          =>  $this->getImageByNumber($variation, 1),
+                'Picture 3 (jpeg)'          =>  $this->getImageByNumber($variation, 2),
+                'Picture 4 (jpeg)'          =>  $this->getImageByNumber($variation, 3),
                 'ISBN / GTIN'               =>  $this->elasticExportHelper->getBarcodeByType($variation, ElasticExportCoreHelper::BARCODE_ISBN),
                 'MFPN'                      =>  $variation['data']['variation']['model'],
                 'Length'                    =>  $lengthCm,
@@ -284,6 +289,8 @@ class CdiscountCOM extends CSVPluginGenerator
             ];
 
             $this->addCSVContent(array_values($data));
+
+            unset($this->imageCache[$variation['id']]);
 
             $this->getLogger(__METHOD__)->debug('ElasticExportCdiscountCOM::logs.variationConstructRowFinished', [
                 'Data row duration' => 'Row printing took: ' . (microtime(true) - $rowTime),
@@ -375,25 +382,44 @@ class CdiscountCOM extends CSVPluginGenerator
         return $description;
     }
 
-    /**
-     * Get variation image by number.
-     *
-     * @param array $variation
-     * @param KeyValue $settings
-     * @param int $number
-     * @return string
-     */
-    private function getImageByNumber($variation, KeyValue $settings, int $number):string
-    {
-        $imageList = $this->elasticExportHelper->getImageList($variation, $settings);
+	/**
+	 * Get variation image by number.
+	 *
+	 * @param array $variation
+	 * @param int $number
+	 * @return string
+	 */
+	private function getImageByNumber($variation, int $number):string
+	{
+		if(array_key_exists($variation['id'], $this->imageCache))
+		{
+			return $this->returnImagePath($variation, $number);
+		}
 
-        if(count($imageList) > 0 && array_key_exists($number, $imageList))
-        {
-            return $imageList[$number];
-        }
-        else
-        {
-            return '';
-        }
-    }
+		$this->imageCache[$variation['id']] = $this->elasticExportHelper->getImageListWithPosition($variation);
+
+		if(count($this->imageCache[$variation['id']]) > 0)
+		{
+			$this->imageCache[$variation['id']] = array_values($this->imageCache[$variation['id']]);
+		}
+
+		return $this->returnImagePath($variation, $number);
+	}
+
+	/**
+	 * @param $variation
+	 * @param int $number
+	 * @return string
+	 */
+	private function returnImagePath($variation, int $number)
+	{
+		if(array_key_exists($number, $this->imageCache[$variation['id']]))
+		{
+			return $this->imageCache[$variation['id']][$number];
+		}
+		else
+		{
+			return '';
+		}
+	}
 }

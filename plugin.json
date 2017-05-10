@@ -2,7 +2,7 @@
   "name": "ElasticExportCdiscountCOM",
   "namespace": "ElasticExportCdiscountCOM",
   "type": "export",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "license": "GNU AFFERO GENERAL PUBLIC LICENSE Version 3, 19 November 2007",
   "pluginIcon": "icon_plugin_md.png",
   "price": 0.00,
@@ -22,6 +22,6 @@
   "authorIcon": "icon_author_xs.png",
   "serviceProvider": "ElasticExportCdiscountCOM\\ElasticExportCdiscountCOMServiceProvider",
   "dependencies": {
-    "ElasticExport": ">=1.0.13"
+    "ElasticExport": ">=1.0.14"
   }
 }

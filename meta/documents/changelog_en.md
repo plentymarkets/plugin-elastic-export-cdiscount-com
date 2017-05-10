@@ -1,5 +1,10 @@
 # Release Notes for Elastic Export Cdiscount.com
 
+## v1.0.7 (2017-05-10)
+
+### Fixed
+- An issue was fixed which caused the exported images not to be sorted based on the position.
+
 ## v1.0.6 (2017-05-09)
 
 ### Fixed
