@@ -1,5 +1,10 @@
 # Release Notes for Elastic Export Cdiscount.com
 
+## v1.0.8 (2017-05-12)
+ 
+### Added
+- Added a cache for the images to improve the performance.
+
 ## v1.0.7 (2017-05-10)
 
 ### Fixed
