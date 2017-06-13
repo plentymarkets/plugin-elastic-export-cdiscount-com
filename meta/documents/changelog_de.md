@@ -1,5 +1,10 @@
 # Release Notes für Elastic Export Cdiscount.com
 
+## v1.0.9 (2017-06-13)
+
+### Behoben
+- Es wurde ein Fehler behoben, bei dem die Marktplatzkategorien nicht korrekt exportiert wurden.
+
 ## v1.0.8 (2017-05-12)
 
 ### Geändert
