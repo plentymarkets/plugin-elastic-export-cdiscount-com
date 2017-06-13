@@ -258,7 +258,7 @@ class CdiscountCOM extends CSVPluginGenerator
                 'EAN'                       =>  $this->elasticExportHelper->getBarcodeByType($variation, $settings->get('barcode')),
                 'Brand'                     =>  $this->elasticExportHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
                 'Nature of product'         =>  strlen($colorAndSize['color']) || strlen($colorAndSize['size']) ? 'variante' : 'standard',
-                'Category code'             =>  $variation['data']['defaultCategories'][0]['id'],
+                'Category code'             =>  $this->elasticExportHelper->getCategoryMarketplace((int)$variation['data']['defaultCategories'][0]['id'], (int)$settings->get('plentyId'), (int)self::CDISCOUNT_COM),
                 'Basket short wording'      =>  $this->elasticExportHelper->getMutatedName($variation, $settings, 256),
                 'Basket long wording'       =>  $variation['data']['texts']['shortDescription'],
                 'Product description'       =>  $this->getDescription($variation, $settings),
@@ -307,23 +307,22 @@ class CdiscountCOM extends CSVPluginGenerator
     }
 
     /**
-     * Get the sku for the variation.
+     * Get the sku of a variation.
      *
      * @param $variation
      * @return string
      */
     private function getSku($variation):string
     {
-        if(isset($variation['data']['skus']) && count($variation['data']['skus']) > 0)
+        // Get the sku if it's already indexed
+        $sku = null;
+        if(!is_null($variation['data']['skus'][0]['sku']) && strlen($variation['data']['skus'][0]['sku']) > 0)
         {
-            $sku = array_shift($variation['data']['skus']);
-            if(isset($sku) && strlen($sku['sku']) > 0)
-            {
-                return $sku['sku'];
-            }
+            $sku = (string)$variation['data']['skus'][0]['sku'];
         }
 
-        return $this->elasticExportHelper->generateSku($variation['id'], self::CDISCOUNT_COM, 0, $variation['id']);
+        // Update and return the sku
+        return $this->elasticExportHelper->generateSku($variation['id'], self::CDISCOUNT_COM, 0, $sku);
     }
 
     /**
