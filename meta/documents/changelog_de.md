@@ -1,5 +1,10 @@
 # Release Notes für Elastic Export Cdiscount.com
 
+## v1.0.10 (2017-07-18)
+
+### Geändert
+- Das Plugin Elastic Export ist nun Voraussetzung zur Nutzung des Plugin-Formats.
+
 ## v1.0.9 (2017-06-13)
 
 ### Behoben
