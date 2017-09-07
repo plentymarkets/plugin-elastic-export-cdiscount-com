@@ -98,7 +98,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
 			Barcode
 		</td>
 		<td>
-			Die Option <b>GTIN 13</b> wählen.
+			<b>GTIN 13</b> wählen.
 		</td>
 	</tr>
     <tr>
@@ -106,7 +106,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
             Bild
         </td>
         <td>
-            Die Option <b>Erstes Bild</b>wählen.
+            <b>Erstes Bild</b> wählen.
         </td>
     </tr>
     <tr>
