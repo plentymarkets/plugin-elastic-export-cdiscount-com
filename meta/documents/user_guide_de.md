@@ -175,7 +175,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
     	</td>
     	<td>
     		<b>Pflichtfeld</b><br>
-    		<b>Inhalt:</b> Die <b>Parent SKU</b> der Variante.
+    		<b>Inhalt:</b> Die <b>Parent-SKU</b> der Variante.
     	</td>
     </tr>
     <tr>
@@ -202,7 +202,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
         </td>
         <td>
             <b>Pflichtfeld</b><br>
-            <b>Inhalt:</b> Der <b>Herstellers</b> des Artikels. Der <b>Externe Name</b> unter <b>Einstellungen » Artikel » Hersteller</b> wird bevorzugt, wenn vorhanden.
+            <b>Inhalt:</b> Der <b>Hersteller</b> des Artikels. Der <b>Externe Name</b> unter <b>Einstellungen » Artikel » Hersteller</b> wird bevorzugt, wenn vorhanden.
         </td>
     </tr>
 	<tr>
