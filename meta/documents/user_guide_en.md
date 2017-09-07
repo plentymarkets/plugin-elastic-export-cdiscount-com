@@ -40,7 +40,7 @@ The following table lists details for settings, format settings and recommended 
             Provisioning
         </td>
         <td>
-            <b>URL</b> wählen.
+            Choose <b>URL</b>.
         </td>
     </tr>
     <tr>
@@ -98,7 +98,7 @@ The following table lists details for settings, format settings and recommended 
 			Barcode
 		</td>
 		<td>
-			Choose the option <b>GTIN 13</b>.
+			Choose <b>GTIN 13</b>.
 		</td>
 	</tr>
     <tr>
@@ -106,7 +106,7 @@ The following table lists details for settings, format settings and recommended 
             Image
         </td>
         <td>
-            Choose the option <b>First image</b>.
+            Choose <b>First image</b>.
         </td>
     </tr>
     <tr>
@@ -221,7 +221,7 @@ The following table lists details for settings, format settings and recommended 
 		</td>
 		<td>
 			<b>Required</b><br>
-			The <b>Category path of the standard category</b> for the <b>Client</b> configured in the format settings.
+			The <b>Category path of the standard category</b> for the <b>client</b> configured in the format settings.
 		</td>
 	</tr>
 	<tr>
@@ -230,7 +230,7 @@ The following table lists details for settings, format settings and recommended 
 		</td>
 		<td>
 			<b>Required</b><br>
-			Entsprechend der Formateinstellung <b>Artikelname</b>.
+			According to the format setting <b>Item name</b>.
 		</td>
 	</tr>
 	<tr>
@@ -265,7 +265,7 @@ The following table lists details for settings, format settings and recommended 
     		Size
     	</td>
     	<td>
-    		The <b>size</b>. According to property <b>size</b> which is configured on the item.
+    		The <b>size</b>. According to the property <b>size</b> which is configured for the item.
     	</td>
     </tr>
 	<tr>
@@ -273,7 +273,7 @@ The following table lists details for settings, format settings and recommended 
     		Marketing color
     	</td>
     	<td>
-    		The <b>color</b>. According to property <b>color</b> which is configured on the item.
+    		The <b>color</b>. According to the property <b>color</b> which is configured for the item.
     	</td>
     </tr>
 	<tr>
@@ -281,7 +281,7 @@ The following table lists details for settings, format settings and recommended 
     		Marketing description
     	</td>
     	<td>
-    		The <b>Marketing description</b>. According to property <b>marketing_description</b> which is configured on the item.
+    		The <b>Marketing description</b>. According to the property <b>marketing_description</b> which is configured for the item.
     	</td>
     </tr>
 	<tr>
@@ -329,7 +329,7 @@ The following table lists details for settings, format settings and recommended 
 			Length
 		</td>
 		<td>
-			The <b>length</b> of the variation in centimeters.
+			The <b>length</b> of the variation in centimeter.
 		</td>
 	</tr>
 	<tr>
@@ -337,7 +337,7 @@ The following table lists details for settings, format settings and recommended 
 			Width
 		</td>
 		<td>
-			The <b>width</b> of the variation in centimeters.
+			The <b>width</b> of the variation in centimeter.
 		</td>
 	</tr>
 	<tr>
@@ -345,7 +345,7 @@ The following table lists details for settings, format settings and recommended 
 			Height
 		</td>
 		<td>
-			The <b>height</b> of the variation in centimeters.
+			The <b>height</b> of the variation in centimeter.
 		</td>
 	</tr>
 	<tr>
@@ -361,7 +361,7 @@ The following table lists details for settings, format settings and recommended 
 			Main color
 		</td>
 		<td>
-			The <b>color</b>. According to property <b>main_color</b> which is configured on the item.
+			The <b>color</b>. According to the property <b>main_color</b> which is configured for the item.
 		</td>
 	</tr>
 	<tr>
@@ -369,7 +369,7 @@ The following table lists details for settings, format settings and recommended 
 			Gender
 		</td>
 		<td>
-			The <b>gender</b>. According to property <b>gender</b> which is configured on the item.
+			The <b>gender</b>. According to the property <b>gender</b> which is configured for the item.
 		</td>
 	</tr>
 	<tr>
@@ -377,7 +377,7 @@ The following table lists details for settings, format settings and recommended 
 			Type of public
 		</td>
 		<td>
-			The <b>target group</b>. According to property <b>type_of_public</b> which is configured on the item.
+			The <b>target group</b>. According to the property <b>type_of_public</b> which is configured for the item.
 		</td>
 	</tr>
 	<tr>
@@ -385,7 +385,7 @@ The following table lists details for settings, format settings and recommended 
 			Sports
 		</td>
 		<td>
-			According to property <b>sports</b> which is configured on the item.
+			According to the property <b>sports</b> which is configured for the item.
 		</td>
 	</tr>
 	<tr>
@@ -393,7 +393,7 @@ The following table lists details for settings, format settings and recommended 
 			Comment
 		</td>
 		<td>
-			According to property <b>comment</b> which is configured on the item.
+			According to the property <b>comment</b> which is configured for the item.
 		</td>
 	</tr>	
 </table>
