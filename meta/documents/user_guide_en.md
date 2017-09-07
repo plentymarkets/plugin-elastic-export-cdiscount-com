@@ -159,16 +159,15 @@ The following table lists details for settings, format settings and recommended 
 	</tr>
 </table>
 
-
-## 3 Übersicht der verfügbaren Spalten
+## 3 Overview of available columns
 
 <table>
     <tr>
         <th>
-            Spaltenbezeichnung
+            Column description
         </th>
         <th>
-            Erläuterung
+            Explanation
         </th>
     </tr>
     <tr>
@@ -176,8 +175,8 @@ The following table lists details for settings, format settings and recommended 
     		Sku parent
     	</td>
     	<td>
-    		<b>Pflichtfeld</b><br>
-    		<b>Inhalt:</b> Die <b>Parent SKU</b> der Variante.
+    		<b>Required</b><br>
+    		The <b>Parent SKU</b> of the variation.
     	</td>
     </tr>
     <tr>
@@ -185,8 +184,8 @@ The following table lists details for settings, format settings and recommended 
     		Your reference
     	</td>
     	<td>
-    		<b>Pflichtfeld</b><br>
-    		<b>Inhalt:</b> Die <b>SKU</b> der Variante. 
+    		<b>Required</b><br>
+    		The <b>SKU</b> of the variation. 
     	</td>
     </tr>
     <tr>
@@ -194,8 +193,8 @@ The following table lists details for settings, format settings and recommended 
     		EAN
     	</td>
     	<td>
-    		<b>Pflichtfeld</b><br>
-			<b>Inhalt:</b> Entsprechend der Formateinstellung <b>Barcode</b>.
+    		<b>Required</b><br>
+			According to the format setting <b>Barcode</b>.
     	</td>
     </tr>
     <tr>
@@ -203,8 +202,8 @@ The following table lists details for settings, format settings and recommended 
             Brand
         </td>
         <td>
-            <b>Pflichtfeld</b><br>
-            <b>Inhalt:</b> Der <b>Herstellers</b> des Artikels. Der <b>Externe Name</b> unter <b>Einstellungen » Artikel » Hersteller</b> wird bevorzugt, wenn vorhanden.
+            <b>Required</b><br>
+            The <b>name of the manufacturer</b> of the item. The <b>external name</b> within <b>Settings » Items » Manufacturer</b> will be preferred if existing.
         </td>
     </tr>
 	<tr>
@@ -212,8 +211,8 @@ The following table lists details for settings, format settings and recommended 
 			Nature of product
 		</td>
 		<td>
-			<b>Pflichtfeld</b><br>
-			<b>Inhalt:</b> Der <b>Produkttyp</b> einer Variante. Definiert, ob die Variante ein <b>Einzelartikel</b> oder eine <b>Variante eines Artikels</b> ist.
+			<b>Required</b><br>
+			The <b>product type</b> of a variation. This field defines wether a variation is a <b>single item</b> or a <b>variation of an item</b>.
 		</td>
 	</tr>
 	<tr>
@@ -221,8 +220,8 @@ The following table lists details for settings, format settings and recommended 
 			Category of product
 		</td>
 		<td>
-			<b>Pflichtfeld</b><br>
-			<b>Inhalt:</b> Der <b>Kategoriepfad der Standardkategorie</b> für den in den Formateinstellungen definierten <b>Mandanten</b>.
+			<b>Required</b><br>
+			The <b>Category path of the standard category</b> for the <b>Client</b> configured in the format settings.
 		</td>
 	</tr>
 	<tr>
@@ -230,8 +229,8 @@ The following table lists details for settings, format settings and recommended 
 			Basket short wording
 		</td>
 		<td>
-			<b>Pflichtfeld</b><br>
-			<b>Inhalt:</b> Entsprechend der Formateinstellung <b>Artikelname</b>.
+			<b>Required</b><br>
+			Entsprechend der Formateinstellung <b>Artikelname</b>.
 		</td>
 	</tr>
 	<tr>
@@ -239,8 +238,8 @@ The following table lists details for settings, format settings and recommended 
     		Basket long wording
     	</td>
     	<td>
-    		<b>Pflichtfeld</b><br>
-    		<b>Inhalt:</b> Entsprechend der Formateinstellung <b>Vorschautext</b>.
+    		<b>Required</b><br>
+    		According to the format setting <b>Preview text</b>.
     	</td>
     </tr>
 	<tr>
@@ -248,8 +247,8 @@ The following table lists details for settings, format settings and recommended 
     		Product description
     	</td>
     	<td>
-    		<b>Pflichtfeld</b><br>
-    		<b>Inhalt:</b> Entsprechend der Formateinstellung <b>Beschreibung</b>.
+    		<b>Required</b><br>
+    		According to the format setting <b>Description</b>.
     	</td>
     </tr>
 	<tr>
@@ -257,8 +256,8 @@ The following table lists details for settings, format settings and recommended 
     		Picture 1 (jpeg)
     	</td>
     	<td>
-    		<b>Pflichtfeld</b><br>
-    		<b>Inhalt:</b> Erstes Bild der Variante.
+    		<b>Required</b><br>
+    		First image of a variation.
     	</td>
     </tr>
 	<tr>
@@ -266,7 +265,7 @@ The following table lists details for settings, format settings and recommended 
     		Size
     	</td>
     	<td>
-    		<b>Inhalt:</b> Die <b>Größe</b>. Entsprechend des am Artikel hinterlegten Merkmals <b>size</b>.
+    		The <b>size</b>. According to property <b>size</b> which is configured on the item.
     	</td>
     </tr>
 	<tr>
@@ -274,7 +273,7 @@ The following table lists details for settings, format settings and recommended 
     		Marketing color
     	</td>
     	<td>
-    		<b>Inhalt:</b> Die <b>Farbe</b>. Entsprechend des am Artikel hinterlegten Merkmals <b>color</b>.
+    		The <b>color</b>. According to property <b>color</b> which is configured on the item.
     	</td>
     </tr>
 	<tr>
@@ -282,7 +281,7 @@ The following table lists details for settings, format settings and recommended 
     		Marketing description
     	</td>
     	<td>
-    		<b>Inhalt:</b> Die <b>Marketing Beschreibung</b>. Entsprechend des am Artikel hinterlegten Merkmals <b>marketing_description</b>.
+    		The <b>Marketing description</b>. According to property <b>marketing_description</b> which is configured on the item.
     	</td>
     </tr>
 	<tr>
@@ -290,7 +289,7 @@ The following table lists details for settings, format settings and recommended 
     		Picture 2 (jpeg)
     	</td>
     	<td>
-    		<b>Inhalt:</b> Zweites Bild der Variante.
+    		Second image of the variation.
     	</td>
     </tr>
 	<tr>
@@ -298,7 +297,7 @@ The following table lists details for settings, format settings and recommended 
 			Picture 3 (jpeg)
 		</td>
 		<td>
-			<b>Inhalt:</b> Drittes Bild der Variante.
+			Third image of the variation.
 		</td>
     </tr>
 	<tr>
@@ -306,7 +305,7 @@ The following table lists details for settings, format settings and recommended 
 			Picture 4 (jpeg)
 		</td>
 		<td>
-			<b>Inhalt:</b> Viertes Bild der Variante.
+			Fourth image of the variation.
 		</td>
     </tr>
     <tr>
@@ -314,7 +313,7 @@ The following table lists details for settings, format settings and recommended 
 			ISBN / GTIN
 		</td>
 		<td>
-			<b>Inhalt:</b> Die <b>ISBN</b> der Variante.
+			The <b>ISBN</b> of the variation.
 		</td>
 	</tr>
 	<tr>
@@ -322,7 +321,7 @@ The following table lists details for settings, format settings and recommended 
 			MFPN
 		</td>
 		<td>
-			<b>Inhalt:</b> Das <b>Model</b> der Variante.
+			The <b>model</b> of the variation.
 		</td>
 	</tr>
 	<tr>
@@ -330,7 +329,7 @@ The following table lists details for settings, format settings and recommended 
 			Length
 		</td>
 		<td>
-			<b>Inhalt:</b> Die <b>Länge</b> der Variante in Zentimentern.
+			The <b>length</b> of the variation in centimeters.
 		</td>
 	</tr>
 	<tr>
@@ -338,7 +337,7 @@ The following table lists details for settings, format settings and recommended 
 			Width
 		</td>
 		<td>
-			<b>Inhalt:</b> Die <b>Breite</b> der Variante in Zentimentern.
+			The <b>width</b> of the variation in centimeters.
 		</td>
 	</tr>
 	<tr>
@@ -346,7 +345,7 @@ The following table lists details for settings, format settings and recommended 
 			Height
 		</td>
 		<td>
-			<b>Inhalt:</b> Die <b>Höhe</b> der Variante in Zentimentern.
+			The <b>height</b> of the variation in centimeters.
 		</td>
 	</tr>
 	<tr>
@@ -354,7 +353,7 @@ The following table lists details for settings, format settings and recommended 
 			Weight
 		</td>
 		<td>
-			<b>Inhalt:</b> Das <b>Gewicht</b> der Variante in Kilogramm.
+			The <b>weight</b> of the variation in kilogram.
 		</td>
 	</tr>
 	<tr>
@@ -362,7 +361,7 @@ The following table lists details for settings, format settings and recommended 
 			Main color
 		</td>
 		<td>
-			<b>Inhalt:</b> Die <b>Farbe</b>. Entsprechend des am Artikel hinterlegten Merkmals <b>main_color</b>.
+			The <b>color</b>. According to property <b>main_color</b> which is configured on the item.
 		</td>
 	</tr>
 	<tr>
@@ -370,7 +369,7 @@ The following table lists details for settings, format settings and recommended 
 			Gender
 		</td>
 		<td>
-			<b>Inhalt:</b> Das <b>Geschlecht</b>. Entsprechend des am Artikel hinterlegten Merkmals <b>gender</b>.
+			The <b>gender</b>. According to property <b>gender</b> which is configured on the item.
 		</td>
 	</tr>
 	<tr>
@@ -378,7 +377,7 @@ The following table lists details for settings, format settings and recommended 
 			Type of public
 		</td>
 		<td>
-			<b>Inhalt:</b> Die <b>Zielgruppe</b>. Entsprechend des am Artikel hinterlegten Merkmals <b>type_of_public</b>.
+			The <b>target group</b>. According to property <b>type_of_public</b> which is configured on the item.
 		</td>
 	</tr>
 	<tr>
@@ -386,7 +385,7 @@ The following table lists details for settings, format settings and recommended 
 			Sports
 		</td>
 		<td>
-			<b>Inhalt:</b> Entsprechend des am Artikel hinterlegten Merkmals <b>sports</b>.
+			According to property <b>sports</b> which is configured on the item.
 		</td>
 	</tr>
 	<tr>
@@ -394,7 +393,7 @@ The following table lists details for settings, format settings and recommended 
 			Comment
 		</td>
 		<td>
-			<b>Inhalt:</b> Entsprechend des am Artikel hinterlegten Merkmals <b>comment</b>.
+			According to property <b>comment</b> which is configured on the item.
 		</td>
 	</tr>	
 </table>

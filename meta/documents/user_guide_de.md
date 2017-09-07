@@ -159,16 +159,14 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
 	</tr>
 </table>
 
-
-## 3 Overview of available columns
-
+## 3 Übersicht der verfügbaren Spalten
 <table>
     <tr>
         <th>
-            Column description
+            Spaltenbezeichnung
         </th>
         <th>
-            Explanation
+            Erläuterung
         </th>
     </tr>
     <tr>
@@ -176,8 +174,8 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
     		Sku parent
     	</td>
     	<td>
-    		<b>Required</b><br>
-    		The <b>Parent SKU</b> of the variation.
+    		<b>Pflichtfeld</b><br>
+    		<b>Inhalt:</b> Die <b>Parent SKU</b> der Variante.
     	</td>
     </tr>
     <tr>
@@ -185,8 +183,8 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
     		Your reference
     	</td>
     	<td>
-    		<b>Required</b><br>
-    		The <b>SKU</b> of the variation. 
+    		<b>Pflichtfeld</b><br>
+    		<b>Inhalt:</b> Die <b>SKU</b> der Variante. 
     	</td>
     </tr>
     <tr>
@@ -194,8 +192,8 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
     		EAN
     	</td>
     	<td>
-    		<b>Required</b><br>
-			According to the format setting <b>Barcode</b>.
+    		<b>Pflichtfeld</b><br>
+			<b>Inhalt:</b> Entsprechend der Formateinstellung <b>Barcode</b>.
     	</td>
     </tr>
     <tr>
@@ -203,8 +201,8 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
             Brand
         </td>
         <td>
-            <b>Required</b><br>
-            The <b>name of the manufacturer</b> of the item. The <b>external name</b> within <b>Settings » Items » Manufacturer</b> will be preferred if existing.
+            <b>Pflichtfeld</b><br>
+            <b>Inhalt:</b> Der <b>Herstellers</b> des Artikels. Der <b>Externe Name</b> unter <b>Einstellungen » Artikel » Hersteller</b> wird bevorzugt, wenn vorhanden.
         </td>
     </tr>
 	<tr>
@@ -212,8 +210,8 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
 			Nature of product
 		</td>
 		<td>
-			<b>Required</b><br>
-			The <b>product type</b> of a variation. This field defines wether a variation is a <b>single item</b> or a <b>variation of an item</b>.
+			<b>Pflichtfeld</b><br>
+			<b>Inhalt:</b> Der <b>Produkttyp</b> einer Variante. Definiert, ob die Variante ein <b>Einzelartikel</b> oder eine <b>Variante eines Artikels</b> ist.
 		</td>
 	</tr>
 	<tr>
@@ -221,8 +219,8 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
 			Category of product
 		</td>
 		<td>
-			<b>Required</b><br>
-			The <b>Category path of the standard category</b> for the <b>Client</b> configured in the format settings.
+			<b>Pflichtfeld</b><br>
+			<b>Inhalt:</b> Der <b>Kategoriepfad der Standardkategorie</b> für den in den Formateinstellungen definierten <b>Mandanten</b>.
 		</td>
 	</tr>
 	<tr>
@@ -230,8 +228,8 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
 			Basket short wording
 		</td>
 		<td>
-			<b>Required</b><br>
-			Entsprechend der Formateinstellung <b>Artikelname</b>.
+			<b>Pflichtfeld</b><br>
+			<b>Inhalt:</b> Entsprechend der Formateinstellung <b>Artikelname</b>.
 		</td>
 	</tr>
 	<tr>
@@ -239,8 +237,8 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
     		Basket long wording
     	</td>
     	<td>
-    		<b>Required</b><br>
-    		According to the format setting <b>Preview text</b>.
+    		<b>Pflichtfeld</b><br>
+    		<b>Inhalt:</b> Entsprechend der Formateinstellung <b>Vorschautext</b>.
     	</td>
     </tr>
 	<tr>
@@ -248,8 +246,8 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
     		Product description
     	</td>
     	<td>
-    		<b>Required</b><br>
-    		According to the format setting <b>Description</b>.
+    		<b>Pflichtfeld</b><br>
+    		<b>Inhalt:</b> Entsprechend der Formateinstellung <b>Beschreibung</b>.
     	</td>
     </tr>
 	<tr>
@@ -257,8 +255,8 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
     		Picture 1 (jpeg)
     	</td>
     	<td>
-    		<b>Required</b><br>
-    		First image of a variation.
+    		<b>Pflichtfeld</b><br>
+    		<b>Inhalt:</b> Erstes Bild der Variante.
     	</td>
     </tr>
 	<tr>
@@ -266,7 +264,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
     		Size
     	</td>
     	<td>
-    		The <b>size</b>. According to property <b>size</b> which is configured on the item.
+    		<b>Inhalt:</b> Die <b>Größe</b>. Entsprechend des am Artikel hinterlegten Merkmals <b>size</b>.
     	</td>
     </tr>
 	<tr>
@@ -274,7 +272,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
     		Marketing color
     	</td>
     	<td>
-    		The <b>color</b>. According to property <b>color</b> which is configured on the item.
+    		<b>Inhalt:</b> Die <b>Farbe</b>. Entsprechend des am Artikel hinterlegten Merkmals <b>color</b>.
     	</td>
     </tr>
 	<tr>
@@ -282,7 +280,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
     		Marketing description
     	</td>
     	<td>
-    		The <b>Marketing description</b>. According to property <b>marketing_description</b> which is configured on the item.
+    		<b>Inhalt:</b> Die <b>Marketing Beschreibung</b>. Entsprechend des am Artikel hinterlegten Merkmals <b>marketing_description</b>.
     	</td>
     </tr>
 	<tr>
@@ -290,7 +288,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
     		Picture 2 (jpeg)
     	</td>
     	<td>
-    		Second image of the variation.
+    		<b>Inhalt:</b> Zweites Bild der Variante.
     	</td>
     </tr>
 	<tr>
@@ -298,7 +296,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
 			Picture 3 (jpeg)
 		</td>
 		<td>
-			Third image of the variation.
+			<b>Inhalt:</b> Drittes Bild der Variante.
 		</td>
     </tr>
 	<tr>
@@ -306,7 +304,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
 			Picture 4 (jpeg)
 		</td>
 		<td>
-			Fourth image of the variation.
+			<b>Inhalt:</b> Viertes Bild der Variante.
 		</td>
     </tr>
     <tr>
@@ -314,7 +312,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
 			ISBN / GTIN
 		</td>
 		<td>
-			The <b>ISBN</b> of the variation.
+			<b>Inhalt:</b> Die <b>ISBN</b> der Variante.
 		</td>
 	</tr>
 	<tr>
@@ -322,7 +320,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
 			MFPN
 		</td>
 		<td>
-			The <b>model</b> of the variation.
+			<b>Inhalt:</b> Das <b>Model</b> der Variante.
 		</td>
 	</tr>
 	<tr>
@@ -330,7 +328,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
 			Length
 		</td>
 		<td>
-			The <b>length</b> of the variation in centimeters.
+			<b>Inhalt:</b> Die <b>Länge</b> der Variante in Zentimentern.
 		</td>
 	</tr>
 	<tr>
@@ -338,7 +336,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
 			Width
 		</td>
 		<td>
-			The <b>width</b> of the variation in centimeters.
+			<b>Inhalt:</b> Die <b>Breite</b> der Variante in Zentimentern.
 		</td>
 	</tr>
 	<tr>
@@ -346,7 +344,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
 			Height
 		</td>
 		<td>
-			The <b>height</b> of the variation in centimeters.
+			<b>Inhalt:</b> Die <b>Höhe</b> der Variante in Zentimentern.
 		</td>
 	</tr>
 	<tr>
@@ -354,7 +352,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
 			Weight
 		</td>
 		<td>
-			The <b>weight</b> of the variation in kilogram.
+			<b>Inhalt:</b> Das <b>Gewicht</b> der Variante in Kilogramm.
 		</td>
 	</tr>
 	<tr>
@@ -362,7 +360,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
 			Main color
 		</td>
 		<td>
-			The <b>color</b>. According to property <b>main_color</b> which is configured on the item.
+			<b>Inhalt:</b> Die <b>Farbe</b>. Entsprechend des am Artikel hinterlegten Merkmals <b>main_color</b>.
 		</td>
 	</tr>
 	<tr>
@@ -370,7 +368,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
 			Gender
 		</td>
 		<td>
-			The <b>gender</b>. According to property <b>gender</b> which is configured on the item.
+			<b>Inhalt:</b> Das <b>Geschlecht</b>. Entsprechend des am Artikel hinterlegten Merkmals <b>gender</b>.
 		</td>
 	</tr>
 	<tr>
@@ -378,7 +376,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
 			Type of public
 		</td>
 		<td>
-			The <b>target group</b>. According to property <b>type_of_public</b> which is configured on the item.
+			<b>Inhalt:</b> Die <b>Zielgruppe</b>. Entsprechend des am Artikel hinterlegten Merkmals <b>type_of_public</b>.
 		</td>
 	</tr>
 	<tr>
@@ -386,7 +384,7 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
 			Sports
 		</td>
 		<td>
-			According to property <b>sports</b> which is configured on the item.
+			<b>Inhalt:</b> Entsprechend des am Artikel hinterlegten Merkmals <b>sports</b>.
 		</td>
 	</tr>
 	<tr>
@@ -394,11 +392,10 @@ In der folgenden Tabelle finden Sie spezifische Hinweise zu den Einstellungen, F
 			Comment
 		</td>
 		<td>
-			According to property <b>comment</b> which is configured on the item.
+			<b>Inhalt:</b> Entsprechend des am Artikel hinterlegten Merkmals <b>comment</b>.
 		</td>
 	</tr>	
 </table>
 
 ## 4 Licence
-
 This project is licensed under the GNU AFFERO GENERAL PUBLIC LICENSE.- find further information in the [LICENSE.md](https://github.com/plentymarkets/plugin-elastic-export-cdiscount-com/blob/master/LICENSE.md).
