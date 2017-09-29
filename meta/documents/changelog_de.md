@@ -3,7 +3,7 @@
 ## v1.0.12 (2017-09-29)
 
 ### Behoben
-- Es wurde ein Fehler behoben, bei dem Varianten nicht übertragen wurden wenn ein Merkmal für Cdiscount ohne Wert gesetzt wurde.
+- Es wurde ein Fehler behoben, bei dem Varianten nicht übertragen wurden, wenn ein Merkmal für Cdiscount ohne Wert gesetzt wurde.
 
 ## v1.0.11 (2017-09-07)
 
