@@ -3,7 +3,7 @@
 ## v1.0.12 (2017-09-29)
 
 ### Fixed
-- An issue was fixed which caused variants to not be exported if a Cdiscount property is was set without value.
+- An issue was fixed which caused variants to not be exported if a Cdiscount property is set without value.
 
 ## v1.0.11 (2017-09-07)
 
