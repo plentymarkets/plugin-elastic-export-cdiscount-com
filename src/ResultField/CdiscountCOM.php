@@ -176,7 +176,10 @@ class CdiscountCOM extends ResultFields
 				'properties.selection.name',
 				'properties.selection.lang',
 				'properties.texts.value',
-				'properties.texts.lang'
+				'properties.texts.lang',
+				'properties.valueInt',
+				'properties.valueFloat',
+
             ],
 
             [
