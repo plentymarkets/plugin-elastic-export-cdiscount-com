@@ -6,7 +6,6 @@ use ElasticExport\Helper\ElasticExportCoreHelper;
 use ElasticExport\Helper\ElasticExportPropertyHelper;
 use ElasticExport\Helper\ElasticExportStockHelper;
 use ElasticExportCdiscountCOM\Helper\AttributeHelper;
-use ElasticExportCdiscountCOM\Helper\PropertyHelper;
 use Plenty\Modules\DataExchange\Contracts\CSVPluginGenerator;
 use Plenty\Modules\Helper\Models\KeyValue;
 use Plenty\Modules\Helper\Services\ArrayHelper;
@@ -42,11 +41,6 @@ class CdiscountCOM extends CSVPluginGenerator
     private $arrayHelper;
 
     /**
-     * @var PropertyHelper
-     */
-    private $propertyHelper;
-
-    /**
      * @var AttributeHelper
      */
     private $attributeHelper;
@@ -69,17 +63,14 @@ class CdiscountCOM extends CSVPluginGenerator
 	/**
 	 * CdiscountCOM constructor.
 	 * @param ArrayHelper $arrayHelper
-	 * @param PropertyHelper $propertyHelper
 	 * @param AttributeHelper $attributeHelper
 	 */
     public function __construct(
         ArrayHelper $arrayHelper,
-        PropertyHelper $propertyHelper,
         AttributeHelper $attributeHelper
     )
     {
         $this->arrayHelper = $arrayHelper;
-        $this->propertyHelper = $propertyHelper;
         $this->attributeHelper = $attributeHelper;
     }
 
