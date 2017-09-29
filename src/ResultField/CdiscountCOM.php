@@ -171,17 +171,22 @@ class CdiscountCOM extends ResultFields
                 'attributes.valueId',
 
                 //properties
-                'properties.property.id',
-                'properties.property.valueType',
-                'properties.selection.name',
-                'properties.texts.value'
+				'properties.property.id',
+				'properties.property.valueType',
+				'properties.selection.name',
+				'properties.selection.lang',
+				'properties.texts.value',
+				'properties.texts.lang',
+				'properties.valueInt',
+				'properties.valueFloat',
+
             ],
 
             [
                 $languageMutator,
                 $skuMutator,
-                $keyMutator,
-                $defaultCategoryMutator
+                $defaultCategoryMutator,
+				$keyMutator,
             ],
         ];
 
