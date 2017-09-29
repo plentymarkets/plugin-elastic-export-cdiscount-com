@@ -3,6 +3,7 @@
 namespace ElasticExportCdiscountCOM\Generator;
 
 use ElasticExport\Helper\ElasticExportCoreHelper;
+use ElasticExport\Helper\ElasticExportPropertyHelper;
 use ElasticExport\Helper\ElasticExportStockHelper;
 use ElasticExportCdiscountCOM\Helper\AttributeHelper;
 use ElasticExportCdiscountCOM\Helper\PropertyHelper;
@@ -56,6 +57,11 @@ class CdiscountCOM extends CSVPluginGenerator
 	private $elasticExportStockHelper;
 
 	/**
+	 * @var ElasticExportPropertyHelper $elasticExportPropertyHelper
+	 */
+	private $elasticExportPropertyHelper;
+
+	/**
 	 * @var array
 	 */
 	private $imageCache;
@@ -88,6 +94,7 @@ class CdiscountCOM extends CSVPluginGenerator
     {
 		$this->elasticExportStockHelper = pluginApp(ElasticExportStockHelper::class);
         $this->elasticExportHelper = pluginApp(ElasticExportCoreHelper::class);
+        $this->elasticExportPropertyHelper = pluginApp(ElasticExportPropertyHelper::class);
 
         $settings = $this->arrayHelper->buildMapFromObjectList($formatSettings, 'key', 'value');
 
@@ -269,7 +276,7 @@ class CdiscountCOM extends CSVPluginGenerator
                 'Marketing color'           =>  $colorAndSize['color'],
 
                 // Optional data
-                'Marketing description'     =>  $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_MARKETING_DESCRIPTION),
+                'Marketing description'     =>  $this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_MARKETING_DESCRIPTION, self::CDISCOUNT_COM),
                 'Picture 2 (jpeg)'          =>  $this->getImageByNumber($variation, $settings, 1),
                 'Picture 3 (jpeg)'          =>  $this->getImageByNumber($variation, $settings, 2),
                 'Picture 4 (jpeg)'          =>  $this->getImageByNumber($variation, $settings, 3),
@@ -281,11 +288,11 @@ class CdiscountCOM extends CSVPluginGenerator
                 'Weight'                    =>  $weightKg,
 
                 // Specific data
-                'Main color'                =>  $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_MAIN_COLOR),
-                'Gender'                    =>  $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_GENDER),
-                'Type of public'            =>  $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_TYPE_OF_PUBLIC),
-                'Sports'                    =>  $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_SPORTS),
-                'Comment'                   =>  $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_COMMENT)
+                'Main color'                =>  $this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_MAIN_COLOR, self::CDISCOUNT_COM),
+                'Gender'                    =>  $this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_GENDER, self::CDISCOUNT_COM),
+                'Type of public'            =>  $this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_TYPE_OF_PUBLIC, self::CDISCOUNT_COM),
+                'Sports'                    =>  $this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_SPORTS, self::CDISCOUNT_COM),
+                'Comment'                   =>  $this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_COMMENT, self::CDISCOUNT_COM)
             ];
 
             $this->addCSVContent(array_values($data));
@@ -323,18 +330,18 @@ class CdiscountCOM extends CSVPluginGenerator
         {
             $color = $variationAttributes['color'];
         }
-        elseif(strlen($this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_MARKETING_COLOR)))
+        elseif(strlen($this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_MARKETING_COLOR, self::CDISCOUNT_COM)))
         {
-            $color = $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_MARKETING_COLOR);
+            $color = $this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_MARKETING_COLOR, self::CDISCOUNT_COM);
         }
 
         if(count($variationAttributes['size']) > 0)
         {
             $size = $variationAttributes['size'];
         }
-        elseif(strlen($this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_SIZE)))
+        elseif(strlen($this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_SIZE, self::CDISCOUNT_COM)))
         {
-            $size = $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_SIZE);
+            $size = $this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_SIZE, self::CDISCOUNT_COM);
         }
 
         return array(
@@ -352,7 +359,7 @@ class CdiscountCOM extends CSVPluginGenerator
      */
     private function getDescription($variation, KeyValue $settings):string
     {
-        $description = $this->propertyHelper->getProperty($variation, $settings, self::CHARACTER_TYPE_DESCRIPTION);
+        $description = $this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_DESCRIPTION, self::CDISCOUNT_COM);
 
         if (strlen($description) <= 0)
         {
