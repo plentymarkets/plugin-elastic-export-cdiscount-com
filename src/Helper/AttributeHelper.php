@@ -80,7 +80,10 @@ class AttributeHelper
 					}
 				}
 				
-				$variationAttributes[$this->attributeNameCache[$variationAttribute['attributeId']]] = $this->attributeValueCache[$variationAttribute['valueId']];
+				if(array_key_exists($variationAttribute['attributeId'], $this->attributeNameCache) && array_key_exists($variationAttribute['valueId'], $this->attributeValueCache))
+				{
+					$variationAttributes[$this->attributeNameCache[$variationAttribute['attributeId']]] = $this->attributeValueCache[$variationAttribute['valueId']];
+				}
 			}
 		}
 
