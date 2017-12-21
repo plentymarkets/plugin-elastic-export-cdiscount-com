@@ -1,5 +1,10 @@
 # Release Notes für Elastic Export Cdiscount.com
 
+## v1.0.13 (2017-12-21)
+
+### Behoben
+- Es wurde ein Fehler behoben, bei dem Attribute mit Amazon verknüpft werden mussten damit sie übertragen werden.
+
 ## v1.0.12 (2017-09-29)
 
 ### Behoben

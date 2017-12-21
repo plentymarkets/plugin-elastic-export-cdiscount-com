@@ -317,7 +317,7 @@ class CdiscountCOM extends CSVPluginGenerator
 
         $variationAttributes = $this->attributeHelper->getVariationAttributes($variation, $settings);
 
-        if(count($variationAttributes['color']) > 0)
+        if(array_key_exists('color', $variationAttributes))
         {
             $color = $variationAttributes['color'];
         }
@@ -326,7 +326,7 @@ class CdiscountCOM extends CSVPluginGenerator
             $color = $this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_MARKETING_COLOR, self::CDISCOUNT_COM);
         }
 
-        if(count($variationAttributes['size']) > 0)
+        if(array_key_exists('size', $variationAttributes))
         {
             $size = $variationAttributes['size'];
         }
