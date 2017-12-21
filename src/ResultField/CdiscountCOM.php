@@ -2,17 +2,23 @@
 
 namespace ElasticExportCdiscountCOM\ResultField;
 
+use ElasticExport\DataProvider\ResultFieldDataProvider;
+use Plenty\Modules\Cloud\ElasticSearch\Lib\ElasticSearch;
 use Plenty\Modules\DataExchange\Contracts\ResultFields;
 use Plenty\Modules\DataExchange\Models\FormatSetting;
 use Plenty\Modules\Helper\Services\ArrayHelper;
+use Plenty\Modules\Item\Search\Mutators\BarcodeMutator;
 use Plenty\Modules\Item\Search\Mutators\ImageMutator;
 use Plenty\Modules\Cloud\ElasticSearch\Lib\Source\Mutator\BuiltIn\LanguageMutator;
 use Plenty\Modules\Item\Search\Mutators\KeyMutator;
 use Plenty\Modules\Item\Search\Mutators\SkuMutator;
 use Plenty\Modules\Item\Search\Mutators\DefaultCategoryMutator;
+use Plenty\Plugin\Log\Loggable;
 
 class CdiscountCOM extends ResultFields
 {
+	use Loggable;
+	
     const CDISCOUNT_COM = 143.00;
 
     /**
@@ -39,45 +45,8 @@ class CdiscountCOM extends ResultFields
     public function generateResultFields(array $formatSettings = []):array
     {
         $settings = $this->arrayHelper->buildMapFromObjectList($formatSettings, 'key', 'value');
-
-        $reference = $settings->get('referrerId') ? $settings->get('referrerId') : self::CDISCOUNT_COM;
-
-		$itemDescriptionFields = ['texts.urlPath', 'texts.lang'];
-
-		switch($settings->get('nameId'))
-		{
-			case 1:
-				$itemDescriptionFields[] = 'texts.name1';
-				break;
-
-			case 2:
-				$itemDescriptionFields[] = 'texts.name2';
-				break;
-
-			case 3:
-				$itemDescriptionFields[] = 'texts.name3';
-				break;
-
-			default:
-				$itemDescriptionFields[] = 'texts.name1';
-				break;
-		}
-
-		if($settings->get('descriptionType') == 'itemShortDescription'
-			|| $settings->get('previewTextType') == 'itemShortDescription')
-		{
-			$itemDescriptionFields[] = 'texts.shortDescription';
-		}
-
-		if($settings->get('descriptionType') == 'itemDescription'
-			|| $settings->get('descriptionType') == 'itemDescriptionAndTechnicalData'
-			|| $settings->get('previewTextType') == 'itemDescription'
-			|| $settings->get('previewTextType') == 'itemDescriptionAndTechnicalData')
-		{
-			$itemDescriptionFields[] = 'texts.description';
-		}
-		
-		$itemDescriptionFields[] = 'texts.technicalData';
+		$this->setOrderByList(['item.id', ElasticSearch::SORTING_ORDER_ASC]);
+		$reference = $settings->get('referrerId') ? $settings->get('referrerId') : self::CDISCOUNT_COM;
 
         /**
          * @var ImageMutator $imageMutator
@@ -113,6 +82,15 @@ class CdiscountCOM extends ResultFields
             $skuMutator->setMarket($reference);
         }
 
+		/**
+		 * @var BarcodeMutator $barcodeMutator
+		 */
+		$barcodeMutator = pluginApp(BarcodeMutator::class);
+		if($barcodeMutator instanceof BarcodeMutator)
+		{
+			$barcodeMutator->addMarket($reference);
+		}
+		
         /**
          * @var DefaultCategoryMutator $defaultCategoryMutator
          */
@@ -122,82 +100,37 @@ class CdiscountCOM extends ResultFields
             $defaultCategoryMutator->setPlentyId($settings->get('plentyId'));
         }
 
-        $fields = [
-            [
-                //item
-                'item.id',
-                'item.manufacturer.id',
+		$resultFieldHelper = pluginApp(ResultFieldDataProvider::class);
+		if($resultFieldHelper instanceof ResultFieldDataProvider)
+		{
+			$resultFields = $resultFieldHelper->getResultFields($settings);
+		}
 
-                //variation
-                'id',
-                'variation.model',
-                'variation.lengthMM',
-                'variation.heightMM',
-                'variation.weightG',
-                'variation.widthMM',
-                'variation.stockLimitation',
+		if(isset($resultFields) && is_array($resultFields) && count($resultFields))
+		{
+			$fields[0] = $resultFields;
+			$fields[1] = [
+				$languageMutator,
+				$skuMutator,
+				$defaultCategoryMutator,
+				$barcodeMutator,
+				$keyMutator
+			];
 
-                //images
-                'images.item.urlMiddle',
-                'images.item.urlPreview',
-                'images.item.urlSecondPreview',
-                'images.item.url',
-                'images.item.path',
-                'images.item.position',
-
-                'images.variation.urlMiddle',
-                'images.variation.urlPreview',
-                'images.variation.urlSecondPreview',
-                'images.variation.url',
-                'images.variation.path',
-                'images.variation.position',
-
-                //unit
-                'unit.content',
-                'unit.id',
-
-                //skus
-                'skus.sku',
-
-                //defaultCategories
-                'defaultCategories.id',
-
-                //barcodes
-                'barcodes.code',
-                'barcodes.id',
-                'barcodes.type',
-
-                //attributes
-                'attributes.valueId',
-
-                //properties
-				'properties.property.id',
-				'properties.property.valueType',
-				'properties.selection.name',
-				'properties.selection.lang',
-				'properties.texts.value',
-				'properties.texts.lang',
-				'properties.valueInt',
-				'properties.valueFloat',
-
-            ],
-
-            [
-                $languageMutator,
-                $skuMutator,
-                $defaultCategoryMutator,
-				$keyMutator,
-            ],
-        ];
-
+			if($reference != -1)
+			{
+				$fields[1][] = $imageMutator;
+			}
+		}
+		else
+		{
+			$this->getLogger(__METHOD__)->critical('ElasticExportCdiscountCOM::log.resultFieldError');
+			exit();
+		}
+		
         if($reference != -1)
         {
             $fields[1][] = $imageMutator;
-        }
-
-        foreach($itemDescriptionFields as $itemDescriptionField)
-        {
-            $fields[0][] = $itemDescriptionField;
         }
 
         return $fields;
