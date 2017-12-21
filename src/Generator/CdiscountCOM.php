@@ -317,7 +317,7 @@ class CdiscountCOM extends CSVPluginGenerator
 
         $variationAttributes = $this->attributeHelper->getVariationAttributes($variation, $settings);
 
-        if(array_key_exists('color', $variationAttributes))//count($variationAttributes['color']) > 0)
+        if(array_key_exists('color', $variationAttributes))
         {
             $color = $variationAttributes['color'];
         }

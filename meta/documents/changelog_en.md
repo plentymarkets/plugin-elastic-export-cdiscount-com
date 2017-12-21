@@ -3,7 +3,7 @@
 ## v1.0.13 (2017-12-21)
 
 ### Fixed
-- An issue was fixed which caused attributes have to be linked with amazon to be exported.
+- An issue was fixed which caused attributes to have to be linked with amazon to be exported.
 
 ## v1.0.12 (2017-09-29)
 
