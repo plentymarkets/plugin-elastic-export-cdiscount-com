@@ -1,5 +1,10 @@
 # Release Notes für Elastic Export Cdiscount.com
 
+## v1.0.14 (2017-01-11)
+
+### Behoben
+- Es wurde ein Fehler behoben, der dazu führte das keine Bilder übertragen wurden.
+
 ## v1.0.13 (2017-12-21)
 
 ### Behoben
