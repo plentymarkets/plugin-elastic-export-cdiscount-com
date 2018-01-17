@@ -1,11 +1,11 @@
 # Release Notes für Elastic Export Cdiscount.com
 
-## v1.0.15 (2017-01-17)
+## v1.0.15 (2018-01-17)
 
 ### Behoben
 - Es wurde ein Fehler behoben, der dazu führte, dass Artikel als Varianten übertragen wurden, obwohl Cdiscount sie als Standardartikel erwartet.
 
-## v1.0.14 (2017-01-11)
+## v1.0.14 (2018-01-11)
 
 ### Behoben
 - Es wurde ein Fehler behoben, der dazu führte, dass keine Bilder übertragen wurden.
