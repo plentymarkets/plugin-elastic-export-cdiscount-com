@@ -1,9 +1,14 @@
 # Release Notes for Elastic Export Cdiscount.com
 
-## v1.0.14 (2017-01-11)
+## v1.0.15 (2018-01-17)
 
 ### Fixed
-- An issue was fixed which caused the file to not have any images.
+- An issue was fixed which caused some items to be exported as variations where cdiscount expected a standard item.
+
+## v1.0.14 (2018-01-11)
+
+### Fixed
+- An issue was fixed which caused images not to be exported.
 
 ## v1.0.13 (2017-12-21)
 

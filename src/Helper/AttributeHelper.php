@@ -2,6 +2,7 @@
 
 namespace ElasticExportCdiscountCOM\Helper;
 
+use ElasticExportCdiscountCOM\Generator\CdiscountCOM;
 use Plenty\Modules\Helper\Models\KeyValue;
 use Plenty\Modules\Item\Attribute\Contracts\AttributeMapRepositoryContract;
 use Plenty\Modules\Item\Attribute\Contracts\AttributeValueMapRepositoryContract;
@@ -76,13 +77,27 @@ class AttributeHelper
 
 					if($attributeValueMap instanceof AttributeValueMap)
 					{
-						$this->attributeValueCache[$variationAttribute['valueId']] = $attributeValueMap->marketInformation1;
+						$this->attributeValueCache[$variationAttribute['valueId']]['marketInformation1'] = $attributeValueMap->marketInformation1;
+
+						if(in_array($this->attributeNameCache[$variationAttribute['attributeId']], [CdiscountCOM::CHARACTER_TYPE_COLOR, CdiscountCOM::CHARACTER_TYPE_MARKETING_COLOR]))
+						{
+							$this->attributeValueCache[$variationAttribute['valueId']]['marketInformation2'] = $attributeValueMap->marketInformation2;
+						}
+						elseif(!array_key_exists('marketInformation2', $this->attributeValueCache[$variationAttribute['valueId']]))
+						{
+							$this->attributeValueCache[$variationAttribute['valueId']]['marketInformation2'] = '';
+						}
 					}
 				}
 				
 				if(array_key_exists($variationAttribute['attributeId'], $this->attributeNameCache) && array_key_exists($variationAttribute['valueId'], $this->attributeValueCache))
 				{
-					$variationAttributes[$this->attributeNameCache[$variationAttribute['attributeId']]] = $this->attributeValueCache[$variationAttribute['valueId']];
+					$variationAttributes[$this->attributeNameCache[$variationAttribute['attributeId']]] = $this->attributeValueCache[$variationAttribute['valueId']]['marketInformation1'];
+
+					if(strlen($this->attributeValueCache[$variationAttribute['valueId']]['marketInformation2']))
+					{
+						$variationAttributes[CdiscountCOM::CHARACTER_TYPE_MAIN_COLOR] = $this->attributeValueCache[$variationAttribute['valueId']]['marketInformation2'];
+					}
 				}
 			}
 		}

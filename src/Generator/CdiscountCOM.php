@@ -26,9 +26,15 @@ class CdiscountCOM extends CSVPluginGenerator
     const CHARACTER_TYPE_WARNINGS                       =   'warnings';
     const CHARACTER_TYPE_COMMENT                        =   'comment';
     const CHARACTER_TYPE_MAIN_COLOR                     =   'main_color';
+	const CHARACTER_TYPE_COLOR                			=   'color';
     const CHARACTER_TYPE_MARKETING_DESCRIPTION          =   'marketing_description';
     const CHARACTER_TYPE_MARKETING_COLOR                =   'marketing_color';
     const CHARACTER_TYPE_SIZE                           =   'size';
+	const CHARACTER_TYPE_NORMAL_SIZE                    =   'normal_size';
+    const NO_VARIATION									=	'no_variation';
+    const VARIATION										=	'variation';
+    const STANDARD										=	'standard';
+    const VARIANTE										=	'variante';
 
     /**
      * @var ElasticExportCoreHelper $elasticExportHelper
@@ -245,6 +251,8 @@ class CdiscountCOM extends CSVPluginGenerator
             $widthCm  = $variation['data']['variation']['widthMM'] / 10;
             $heightCm = $variation['data']['variation']['heightMM'] / 10;
             $weightKg = $variation['data']['variation']['weightG'] / 1000;
+            
+			$isVariation = $this->checkIfVariation($variation, $colorAndSize);
 
             $data = [
                 // Required data for variations
@@ -255,7 +263,7 @@ class CdiscountCOM extends CSVPluginGenerator
                 'Your reference'            =>  $this->elasticExportHelper->generateSku($variation['id'], self::CDISCOUNT_COM, 0, $variation['data']['skus'][0]['sku']),
                 'EAN'                       =>  $this->elasticExportHelper->getBarcodeByType($variation, $settings->get('barcode')),
                 'Brand'                     =>  $this->elasticExportHelper->getExternalManufacturerName((int)$variation['data']['item']['manufacturer']['id']),
-                'Nature of product'         =>  strlen($colorAndSize['color']) || strlen($colorAndSize['size']) ? 'variante' : 'standard',
+                'Nature of product'         =>  $isVariation,
                 'Category code'             =>  $this->elasticExportHelper->getCategoryMarketplace((int)$variation['data']['defaultCategories'][0]['id'], (int)$settings->get('plentyId'), (int)self::CDISCOUNT_COM),
                 'Basket short wording'      =>  $this->elasticExportHelper->getMutatedName($variation, $settings, 256),
                 'Basket long wording'       =>  $variation['data']['texts']['shortDescription'],
@@ -263,8 +271,8 @@ class CdiscountCOM extends CSVPluginGenerator
                 'Picture 1 (jpeg)'          =>  $this->getImageByNumber($variation, $settings, 0),
 
                 // Required data for variations
-                'Size'                      =>  $colorAndSize['size'],
-                'Marketing color'           =>  $colorAndSize['color'],
+                'Size'                      =>  strlen($colorAndSize[self::CHARACTER_TYPE_SIZE]) ? $colorAndSize[self::CHARACTER_TYPE_SIZE] : $colorAndSize[self::CHARACTER_TYPE_NORMAL_SIZE],
+                'Marketing color'           =>  strlen($colorAndSize[self::CHARACTER_TYPE_COLOR]) ? $colorAndSize[self::CHARACTER_TYPE_COLOR] : $colorAndSize[self::CHARACTER_TYPE_MARKETING_COLOR],
 
                 // Optional data
                 'Marketing description'     =>  $this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_MARKETING_DESCRIPTION, self::CDISCOUNT_COM),
@@ -279,7 +287,7 @@ class CdiscountCOM extends CSVPluginGenerator
                 'Weight'                    =>  $weightKg,
 
                 // Specific data
-                'Main color'                =>  $this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_MAIN_COLOR, self::CDISCOUNT_COM),
+                'Main color'                =>  $colorAndSize[self::CHARACTER_TYPE_MAIN_COLOR],
                 'Gender'                    =>  $this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_GENDER, self::CDISCOUNT_COM),
                 'Type of public'            =>  $this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_TYPE_OF_PUBLIC, self::CDISCOUNT_COM),
                 'Sports'                    =>  $this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_SPORTS, self::CDISCOUNT_COM),
@@ -313,32 +321,46 @@ class CdiscountCOM extends CSVPluginGenerator
      */
     private function getColorAndSize($variation, KeyValue $settings)
     {
-        $color = $size = '';
-
+		$colorSize = [
+			self::CHARACTER_TYPE_COLOR	=> '',
+			self::CHARACTER_TYPE_MARKETING_COLOR	=> '',
+			self::CHARACTER_TYPE_SIZE	=> '',
+			self::CHARACTER_TYPE_NORMAL_SIZE	=> '',
+			self::CHARACTER_TYPE_MAIN_COLOR	=> ''
+		];
+    	
         $variationAttributes = $this->attributeHelper->getVariationAttributes($variation, $settings);
 
-        if(array_key_exists('color', $variationAttributes))
+        if(array_key_exists(self::CHARACTER_TYPE_COLOR, $variationAttributes))
         {
-            $color = $variationAttributes['color'];
+            $colorSize[self::CHARACTER_TYPE_COLOR] = $variationAttributes[self::CHARACTER_TYPE_COLOR];
+			$colorSize[self::CHARACTER_TYPE_MAIN_COLOR] = $variationAttributes[self::CHARACTER_TYPE_MAIN_COLOR];
         }
+        elseif(array_key_exists(self::CHARACTER_TYPE_MARKETING_COLOR, $variationAttributes))
+		{
+			$colorSize[self::CHARACTER_TYPE_MARKETING_COLOR] = $variationAttributes[self::CHARACTER_TYPE_MARKETING_COLOR];
+			$colorSize[self::CHARACTER_TYPE_MAIN_COLOR] = $variationAttributes[self::CHARACTER_TYPE_MAIN_COLOR];
+		}
         elseif(strlen($this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_MARKETING_COLOR, self::CDISCOUNT_COM)))
         {
-            $color = $this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_MARKETING_COLOR, self::CDISCOUNT_COM);
+			$colorSize[self::CHARACTER_TYPE_COLOR] = $this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_MARKETING_COLOR, self::CDISCOUNT_COM);
+			$colorSize[self::CHARACTER_TYPE_MAIN_COLOR] = $this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_MAIN_COLOR, self::CDISCOUNT_COM);
         }
 
-        if(array_key_exists('size', $variationAttributes))
+        if(array_key_exists(self::CHARACTER_TYPE_SIZE, $variationAttributes))
         {
-            $size = $variationAttributes['size'];
+			$colorSize[self::CHARACTER_TYPE_SIZE] = $variationAttributes[self::CHARACTER_TYPE_SIZE];
         }
+        elseif(array_key_exists(self::CHARACTER_TYPE_NORMAL_SIZE, $variationAttributes))
+		{
+			$colorSize[self::CHARACTER_TYPE_NORMAL_SIZE] = $variationAttributes[self::CHARACTER_TYPE_NORMAL_SIZE];
+		}
         elseif(strlen($this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_SIZE, self::CDISCOUNT_COM)))
         {
-            $size = $this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_SIZE, self::CDISCOUNT_COM);
+			$colorSize[self::CHARACTER_TYPE_SIZE] = $this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_SIZE, self::CDISCOUNT_COM);
         }
 
-        return array(
-            'color' => $color,
-            'size'  => $size
-        );
+        return $colorSize;
     }
 
     /**
@@ -394,6 +416,36 @@ class CdiscountCOM extends CSVPluginGenerator
 		else
 		{
 			return '';
+		}
+	}
+
+	/**
+	 * Checks if the variation should be set as a variation or not.
+	 * 
+	 * @param array $variation
+	 * @param array $colorAndSize
+	 * 
+	 * @return string
+	 */
+	private function checkIfVariation($variation, $colorAndSize)
+	{
+		$variationType = $this->elasticExportPropertyHelper->getItemPropertyList($variation, self::CDISCOUNT_COM);
+
+		if(array_key_exists(self::VARIATION, $variationType))
+		{
+			return self::VARIANTE;
+		}
+		elseif(array_key_exists(self::NO_VARIATION, $variationType))
+		{
+			return self::STANDARD;
+		}
+		elseif(strlen($colorAndSize[self::CHARACTER_TYPE_COLOR]) || strlen($colorAndSize[self::CHARACTER_TYPE_SIZE]))
+		{
+			return self::VARIANTE;
+		}
+		else
+		{
+			return self::STANDARD;
 		}
 	}
 }
