@@ -3,7 +3,7 @@
 ## v1.0.15 (2017-01-17)
 
 ### Fixed
-- An issue was fixed which caused some items to be exported as variation where cdiscount expected a standard item.
+- An issue was fixed which caused some items to be exported as variations where cdiscount expected a standard item.
 
 ## v1.0.14 (2017-01-11)
 
