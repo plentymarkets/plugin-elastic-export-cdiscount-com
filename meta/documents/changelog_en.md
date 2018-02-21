@@ -1,5 +1,10 @@
 # Release Notes for Elastic Export Cdiscount.com
 
+## v1.0.16 (2018-02-21)
+
+### Changed
+- Updated plugin short description.
+
 ## v1.0.15 (2018-01-17)
 
 ### Fixed
