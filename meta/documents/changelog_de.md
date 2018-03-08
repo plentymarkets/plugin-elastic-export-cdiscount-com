@@ -3,7 +3,7 @@
 ## v1.0.17 (2018-03-08)
 
 ### Behoben
-- **Basket long wording** beinhaltet die Attributewerte bei Varianten.
+- **Basket long wording** beinhaltet die Attributwerte bei Varianten.
 
 ## v1.0.16 (2018-02-21)
 
