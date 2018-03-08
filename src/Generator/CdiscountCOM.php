@@ -253,6 +253,9 @@ class CdiscountCOM extends CSVPluginGenerator
             $weightKg = $variation['data']['variation']['weightG'] / 1000;
             
 			$isVariation = $this->checkIfVariation($variation, $colorAndSize);
+			
+			$size = strlen($colorAndSize[self::CHARACTER_TYPE_SIZE]) ? $colorAndSize[self::CHARACTER_TYPE_SIZE] : $colorAndSize[self::CHARACTER_TYPE_NORMAL_SIZE];
+			$color = strlen($colorAndSize[self::CHARACTER_TYPE_COLOR]) ? $colorAndSize[self::CHARACTER_TYPE_COLOR] : $colorAndSize[self::CHARACTER_TYPE_MARKETING_COLOR];
 
             $data = [
                 // Required data for variations
@@ -266,13 +269,13 @@ class CdiscountCOM extends CSVPluginGenerator
                 'Nature of product'         =>  $isVariation,
                 'Category code'             =>  $this->elasticExportHelper->getCategoryMarketplace((int)$variation['data']['defaultCategories'][0]['id'], (int)$settings->get('plentyId'), (int)self::CDISCOUNT_COM),
                 'Basket short wording'      =>  $this->elasticExportHelper->getMutatedName($variation, $settings, 256),
-                'Basket long wording'       =>  $variation['data']['texts']['shortDescription'],
+                'Basket long wording'       =>  $variation['data']['texts']['shortDescription'].$this->getColorSizeCombination($color, $size),
                 'Product description'       =>  $this->getDescription($variation, $settings),
                 'Picture 1 (jpeg)'          =>  $this->getImageByNumber($variation, $settings, 0),
 
                 // Required data for variations
-                'Size'                      =>  strlen($colorAndSize[self::CHARACTER_TYPE_SIZE]) ? $colorAndSize[self::CHARACTER_TYPE_SIZE] : $colorAndSize[self::CHARACTER_TYPE_NORMAL_SIZE],
-                'Marketing color'           =>  strlen($colorAndSize[self::CHARACTER_TYPE_COLOR]) ? $colorAndSize[self::CHARACTER_TYPE_COLOR] : $colorAndSize[self::CHARACTER_TYPE_MARKETING_COLOR],
+                'Size'                      =>  $size,
+                'Marketing color'           =>  $color,
 
                 // Optional data
                 'Marketing description'     =>  $this->elasticExportPropertyHelper->getProperty($variation, self::CHARACTER_TYPE_MARKETING_DESCRIPTION, self::CDISCOUNT_COM),
@@ -447,5 +450,37 @@ class CdiscountCOM extends CSVPluginGenerator
 		{
 			return self::STANDARD;
 		}
+	}
+
+	/**
+	 * Get a string combination for the color and size.
+	 * 
+	 * @param $color
+	 * @param $size
+	 * @return string
+	 */
+	private function getColorSizeCombination($color, $size)
+	{
+		$combination = '';
+		
+		if(strlen($color))
+		{
+			$combination = ' ['.$color;
+			
+			if(strlen($size))
+			{
+				$combination = $combination.', '.$size.']';
+			}
+			else
+			{
+				$combination = $combination.']';
+			}
+		}
+		elseif(strlen($size))
+		{
+			$combination = ' ['.$size.']';
+		}
+		
+		return $combination;
 	}
 }
