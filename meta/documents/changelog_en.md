@@ -3,7 +3,7 @@
 ## v1.0.17 (2018-03-08)
 
 ### Fixed
-- **Basket long wording** contains the attribute values at variations.
+- **Basket long wording** contains the attribute values for variations.
 
 ## v1.0.16 (2018-02-21)
 
