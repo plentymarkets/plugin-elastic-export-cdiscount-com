@@ -5,6 +5,7 @@ namespace ElasticExportCdiscountCOM\Generator;
 use ElasticExport\Helper\ElasticExportCoreHelper;
 use ElasticExport\Helper\ElasticExportPropertyHelper;
 use ElasticExport\Helper\ElasticExportStockHelper;
+use ElasticExport\Services\FiltrationService;
 use ElasticExportCdiscountCOM\Helper\AttributeHelper;
 use Plenty\Modules\DataExchange\Contracts\CSVPluginGenerator;
 use Plenty\Modules\Helper\Models\KeyValue;
@@ -66,15 +67,17 @@ class CdiscountCOM extends CSVPluginGenerator
 	 */
 	private $imageCache;
 
+    /**
+     * @var FiltrationService
+     */
+    private $filtrationService;
+
 	/**
 	 * CdiscountCOM constructor.
 	 * @param ArrayHelper $arrayHelper
 	 * @param AttributeHelper $attributeHelper
 	 */
-    public function __construct(
-        ArrayHelper $arrayHelper,
-        AttributeHelper $attributeHelper
-    )
+    public function __construct(ArrayHelper $arrayHelper, AttributeHelper $attributeHelper)
     {
         $this->arrayHelper = $arrayHelper;
         $this->attributeHelper = $attributeHelper;
@@ -94,6 +97,7 @@ class CdiscountCOM extends CSVPluginGenerator
         $this->elasticExportPropertyHelper = pluginApp(ElasticExportPropertyHelper::class);
 
         $settings = $this->arrayHelper->buildMapFromObjectList($formatSettings, 'key', 'value');
+        $this->filtrationService = pluginApp(FiltrationService::class, [$settings, $filter]);
 
         $this->setDelimiter(self::DELIMITER);
 
@@ -150,7 +154,7 @@ class CdiscountCOM extends CSVPluginGenerator
                         }
 
                         // If filtered by stock is set and stock is negative, then skip the variation
-                        if($this->elasticExportStockHelper->isFilteredByStock($variation, $filter) === true)
+                        if($this->filtrationService->filter($variation))
                         {
                             $this->getLogger(__METHOD__)->info('ElasticExportCdiscountCOM::logs.variationNotPartOfExportStock', [
                                 'variationId' => (string)$variation['id']

@@ -1,5 +1,11 @@
 # Release Notes for Elastic Export Cdiscount.com
 
+## v1.0.17 (2018-03-28)
+
+### Changed
+- The class FiltrationService is responsible for the filtration of all variations.
+- Preview images updated.
+
 ## v1.0.16 (2018-02-21)
 
 ### Changed
