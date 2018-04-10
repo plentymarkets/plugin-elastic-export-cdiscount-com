@@ -1,5 +1,10 @@
 # Release Notes for Elastic Export Cdiscount.com
 
+## v1.0.17 (2018-03-08)
+
+### Fixed
+- **Basket long wording** contains the attribute values for variations.
+
 ## v1.0.16 (2018-02-21)
 
 ### Changed
