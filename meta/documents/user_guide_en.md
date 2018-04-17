@@ -4,399 +4,95 @@
 
 ## 1 Registering with Cdiscount.com
 
-Items are sold on the market Cdiscount. For further information about this market, refer to the [Setting up cdiscount](https://knowledge.plentymarkets.com/en/omni-channel/multi-channel/cdiscount) page of the manual.
+Items are sold on the marketplace Cdiscount. For further information about this market, refer to the [Setting up cdiscount](https://knowledge.plentymarkets.com/en/omni-channel/multi-channel/cdiscount) page of the manual.
 
 ## 2 Setting up the data format CdiscountCOM-Plugin in plentymarkets
 
-To use this format, you need the Elastic Export plugin.
+By installing this plugin you will receive the export format **CdiscountCOM-Plugin**. Use this format to exchange data between plentymarkets and Cdiscount.com. It is required to install the Plugin Elastic export from the plentyMarketplace first before you can use the format **CdiscountCOM-Plugin** in plentymarkets.
 
-Refer to the [Exporting data formats for price search engines](https://knowledge.plentymarkets.com/en/basics/data-exchange/exporting-data#30) page of the manual for further details about the individual format settings.
+Once both plugins are installed, you can create the export format **CdiscountCOM-Plugin**. Refer to the [Exporting data formats for price search engines](https://knowledge.plentymarkets.com/en/basics/data-exchange/exporting-data#30) page of the manual for further details about the individual format settings.
+
+Creating a new export format:
+
+1. Go to **Data » Elastic export**.
+2. Click on **New export**.
+3. Carry out the settings as desired. Pay attention to the information given in table 1.
+4. **Save** the settings.
+→ The export format will be given an ID and it will appear in the overview within the **Exports** tab.
 
 The following table lists details for settings, format settings and recommended item filters for the format **CdiscountCOM-Plugin**.
-<table>
-    <tr>
-        <th>
-            Settings
-        </th>
-        <th>
-            Explanation
-        </th>
-    </tr>
-    <tr>
-        <td class="th" colspan="2">
-            Settings
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Format
-        </td>
-        <td>
-            Choose <b>CdiscountCOM-Plugin</b>.
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Provisioning
-        </td>
-        <td>
-            Choose <b>URL</b>.
-        </td>
-    </tr>
-    <tr>
-        <td>
-            File name
-        </td>
-        <td>
-            The file name must have the ending <b>.csv</b> for Cdiscount.com to be able to import the file successfully.
-        </td>
-    </tr>
-    <tr>
-        <td class="th" colspan="2">
-            Item filter
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Activ
-        </td>
-        <td>
-            Choose <b>Activ</b>.
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Markets
-        </td>
-        <td>
-            Choose <b>Cdiscount.com</b>.
-        </td>
-    </tr>
-    <tr>
-        <td class="th" colspan="2">
-            Format settings
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Order referrer
-        </td>
-        <td>
-            Choose <b>Cdiscount.com</b>.
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Preview text
-        </td>
-        <td>
-            This option does not affect this format.
-        </td>
-    </tr>
-    <tr>
-		<td>
-			Barcode
-		</td>
-		<td>
-			Choose <b>GTIN 13</b>.
-		</td>
-	</tr>
-    <tr>
-        <td>
-            Image
-        </td>
-        <td>
-            Choose <b>First image</b>.
-        </td>
-    </tr>
-    <tr>
-		<td>
-			Image position of the energy label
-		</td>
-		<td>
-			This option does not affect this format.
-		</td>
-	</tr>
-    <tr>
-        <td>
-            Special price
-        </td>
-        <td>
-            This option does not affect this format.
-        </td>
-    </tr>
-    <tr>
-		<td>
-			RRP
-		</td>
-		<td>
-			This option does not affect this format.
-		</td>
-	</tr>
-	<tr>
-		<td>
-			Shipping cost
-		</td>
-		<td>
-			This option does not affect this format.
-		</td>
-	</tr>
-    <tr>
-        <td>
-            VAT note
-        </td>
-        <td>
-            This option does not affect this format.
-        </td>
-    </tr>
-    <tr>
-		<td>
-			Override item availabilty
-		</td>
-		<td>
-			This option does not affect this format.
-		</td>
-	</tr>
-</table>
 
-## 3 Overview of available columns
+| **Setting**                                           | **Explanation** | 
+| :---                                                  | :--- |
+| **Settings**                                          |
+| **Name**                                              | Enter a name. The export format will be listed under this name in the overview within the **Exports** tab. |
+| **Type**                                              | Select the type **Item** from the drop-down list. |
+| **Format**                                            | Select **CdiscountCOM-Plugin**. |
+| **Limit**                                             | Enter a number. If you want to transfer more than 9,999 data records to the price search engine, then the output file will not be generated again for another 24 hours. This is to save resources. If more than 9,999 data records are necessary, the setting **Generate cache file** has to be active. |
+| **Generate cache file**                               | Place a check mark if you want to transfer more than 9,999 data records to the price search engine. The output file will not be generated again for another 24 hours. We recommend not to activate this setting for more than 20 export formats. This is to save resources. |
+| **Provision**                                         | Select **URL**. This option generates a token for authentication in order to allow external access. |
+| **Token, URL**                                        | If you have selected the option **URL** under **Provisioning**, then click on **Generate token**. The token will be entered automatically. When the token is generated under **Token**, the URL is entered automatically. |
+| **File name**                                         | The file name must have the ending **.csv** for Cdiscount.com to be able to import the file successfully. |
+| **Item filter**                                       |
+| **Add item filters**                                  | Select an item filter from the drop-down list and click on **Add**. There are no filters set in default. It is possible to add multiple item filters from the drop-down list one after the other.<br/> **Variations** = Select **Transfer all** or **Only transfer main variations**.<br/> **Markets** = Select **Cdiscount.com**.<br/> The availability for all markets selected here has to be saved for the item. Otherwise, the export will not take place.<br/> **Currency** = Select a currency.<br/> **Category** = Activate to transfer the item with its category link. Only items belonging to this category will be exported.<br/> **Image** = Activate to transfer the item with its image. Only items with images will be transferred.<br/> **Client** = Select client.<br/> **Stock** = Select which stocks you want to export.<br/> **Flag 1 - 2** = Select the flag.<br/> **Manufacturer** = Select one, several or **ALL** manufacturers.<br/> **Active** = Only active variations will be exported. |
+| **Format settings**                                   |
+| **Product URL**                                       | Choose wich URL should be transferred to the price comparison portal, the item’s URL or the variation’s URL. Variation SKUs can only be transferred in combination with the Ceres store. |
+| **Client**                                            | Select a client. This setting is used for the URL structure. |
+| **URL parameter**                                     | Enter a suffix for the product URL if this is required for the export. If you have activated the transfer option for the product URL further up, then this character string will be added to the product URL. |
+| **Order referrer**                                    | Select **Cdiscount.com**. |
+| **Marketplace account**                               | Select the marketplace account from the drop-down list. The selected referrer is added to the product URL so that sales can be analysed later. |
+| **Language**                                          | Select the language from the drop-down list. |
+| **Item name**                                         | Select **Name 1**, **Name 2** or **Name 3**. These names are saved in the **Texts** tab of the item. Enter a number into the **Maximum number of characters (def. Text)** field if desired. This specifies how many characters should be exported for the item name. |
+| **Preview text**                                      | This option does not affect this format |
+| **Description**                                       | Select the text that you want to transfer as description.<br/> Enter a number into the **Maximum number of characters (def. text)** field if desired. This specifies how many characters should be exported for the description.<br/> Activate the option **Remove HTML tags** if you want HTML tags to be removed during the export. If you only want to allow specific HTML tags to be exported, then enter these tags into the field **Permitted HTML tags, separated by comma (def. Text)**. Use commas to separate multiple tags. |
+| **Target country**                                    | Select the target country from the drop-down list. |
+| **Barcode**                                           | Select the ASIN, ISBN or an EAN from the drop-down list. The barcode has to be linked to the order referrer selected above. If the barcode is not linked to the order referrer it will not be exported. |
+| **Image**                                             | Select **First image**. |
+| **Image position of the energy efficiency label**     | This option does not affect this format. |
+| **Stockbuffer**                                       | The stock buffer for variations with the limitation to the net stock. |
+| **Stock for variations without stock limitation**     | The stock for variations without stock limitation. |
+| **Stock for variations with no stock administration** | The stock for variations without stock administration. |
+| **Live currency conversion**                          | This option does not affect this format. |
+| **Retail price**                                      | This option does not affect this format. |
+| **Offer price**                                       | This option does not affect this format. |
+| **RRP**                                               | This option does not affect this format. |
+| **Shipping costs**                                    | This option does not affect this format. |
+| **VAT note**                                          | This option does not affect this format. |
+| **Item availability**                                 | This option does not affect this format. |
 
-<table>
-    <tr>
-        <th>
-            Column description
-        </th>
-        <th>
-            Explanation
-        </th>
-    </tr>
-    <tr>
-    	<td>
-    		Sku parent
-    	</td>
-    	<td>
-    		<b>Required</b><br>
-    		The <b>Parent SKU</b> of the variation.
-    	</td>
-    </tr>
-    <tr>
-    	<td>
-    		Your reference
-    	</td>
-    	<td>
-    		<b>Required</b><br>
-    		The <b>SKU</b> of the variation. 
-    	</td>
-    </tr>
-    <tr>
-    	<td>
-    		EAN
-    	</td>
-    	<td>
-    		<b>Required</b><br>
-			According to the format setting <b>Barcode</b>.
-    	</td>
-    </tr>
-    <tr>
-        <td>
-            Brand
-        </td>
-        <td>
-            <b>Required</b><br>
-            The <b>name of the manufacturer</b> of the item. The <b>external name</b> within <b>Settings » Items » Manufacturer</b> will be preferred if existing.
-        </td>
-    </tr>
-	<tr>
-		<td>
-			Nature of product
-		</td>
-		<td>
-			<b>Required</b><br>
-			The <b>product type</b> of a variation. This field defines wether a variation is a <b>single item</b> or a <b>variation of an item</b>.
-		</td>
-	</tr>
-	<tr>
-		<td>
-			Category of product
-		</td>
-		<td>
-			<b>Required</b><br>
-			The <b>Category path of the standard category</b> for the <b>client</b> configured in the format settings.
-		</td>
-	</tr>
-	<tr>
-		<td>
-			Basket short wording
-		</td>
-		<td>
-			<b>Required</b><br>
-			According to the format setting <b>Item name</b>.
-		</td>
-	</tr>
-	<tr>
-    	<td>
-    		Basket long wording
-    	</td>
-    	<td>
-    		<b>Required</b><br>
-    		According to the format setting <b>Preview text</b>.
-    	</td>
-    </tr>
-	<tr>
-    	<td>
-    		Product description
-    	</td>
-    	<td>
-    		<b>Required</b><br>
-    		According to the format setting <b>Description</b>.
-    	</td>
-    </tr>
-	<tr>
-    	<td>
-    		Picture 1 (jpeg)
-    	</td>
-    	<td>
-    		<b>Required</b><br>
-    		First image of a variation.
-    	</td>
-    </tr>
-	<tr>
-    	<td>
-    		Size
-    	</td>
-    	<td>
-    		The <b>size</b>. According to the property <b>size</b> which is configured for the item.
-    	</td>
-    </tr>
-	<tr>
-    	<td>
-    		Marketing color
-    	</td>
-    	<td>
-    		The <b>color</b>. According to the property <b>color</b> which is configured for the item.
-    	</td>
-    </tr>
-	<tr>
-    	<td>
-    		Marketing description
-    	</td>
-    	<td>
-    		The <b>Marketing description</b>. According to the property <b>marketing_description</b> which is configured for the item.
-    	</td>
-    </tr>
-	<tr>
-    	<td>
-    		Picture 2 (jpeg)
-    	</td>
-    	<td>
-    		Second image of the variation.
-    	</td>
-    </tr>
-	<tr>
-    	<td>
-			Picture 3 (jpeg)
-		</td>
-		<td>
-			Third image of the variation.
-		</td>
-    </tr>
-	<tr>
-    	<td>
-			Picture 4 (jpeg)
-		</td>
-		<td>
-			Fourth image of the variation.
-		</td>
-    </tr>
-    <tr>
-		<td>
-			ISBN / GTIN
-		</td>
-		<td>
-			The <b>ISBN</b> of the variation.
-		</td>
-	</tr>
-	<tr>
-		<td>
-			MFPN
-		</td>
-		<td>
-			The <b>model</b> of the variation.
-		</td>
-	</tr>
-	<tr>
-		<td>
-			Length
-		</td>
-		<td>
-			The <b>length</b> of the variation in centimeter.
-		</td>
-	</tr>
-	<tr>
-		<td>
-			Width
-		</td>
-		<td>
-			The <b>width</b> of the variation in centimeter.
-		</td>
-	</tr>
-	<tr>
-		<td>
-			Height
-		</td>
-		<td>
-			The <b>height</b> of the variation in centimeter.
-		</td>
-	</tr>
-	<tr>
-		<td>
-			Weight
-		</td>
-		<td>
-			The <b>weight</b> of the variation in kilogram.
-		</td>
-	</tr>
-	<tr>
-		<td>
-			Main color
-		</td>
-		<td>
-			The <b>color</b>. According to the property <b>main_color</b> which is configured for the item.
-		</td>
-	</tr>
-	<tr>
-		<td>
-			Gender
-		</td>
-		<td>
-			The <b>gender</b>. According to the property <b>gender</b> which is configured for the item.
-		</td>
-	</tr>
-	<tr>
-		<td>
-			Type of public
-		</td>
-		<td>
-			The <b>target group</b>. According to the property <b>type_of_public</b> which is configured for the item.
-		</td>
-	</tr>
-	<tr>
-		<td>
-			Sports
-		</td>
-		<td>
-			According to the property <b>sports</b> which is configured for the item.
-		</td>
-	</tr>
-	<tr>
-		<td>
-			Comment
-		</td>
-		<td>
-			According to the property <b>comment</b> which is configured for the item.
-		</td>
-	</tr>	
-</table>
+## 3 Available columns of the export file
+
+Go to **Data » Elastic export** and open the data format **CdiscountCOM-Plugin** in order to download the export file.
+
+| **Column description**    | **Explanation** |
+| :---                      | :--- |
+| **Sku parent**            | **Required**<br/> The **Parent SKU** of the variation. |
+| **Your reference**        | **Required**<br/> The **SKU** of the variation. |
+| **EAN**                   | **Required**<br/> According to the format setting **Barcode**. |
+| **Brand**                 | **Required**<br/> The **name of the manufacturer** of the item. The **external name** within **Settings » Items » Manufacturer** will be preferred if existing. |
+| **Nature of product**     | **Required**<br/> The product type of a variation. This field defines whether a variation is a single item or a variation of an item. |
+| **Category code**         | **Required**<br/> The **category path** of the standard category for the client configured in the format settings. |
+| **Basket short wording**  | **Required**<br/> According to the format setting **Item name**. |
+| **Basket long wording**   | **Required**<br/> According to the format setting **Preview text**. |
+| **Product description**   | **Required**<br/> According to the format setting **Description**. |
+| **Picture 1 (jpeg)**      | **Required**<br/> First image of the variation. |
+| **Size**                  | The size. According to the property **size** which is configured for the item. |
+| **Marketing color**       | The color. According to the property **color** which is configured for the item. |
+| **Marketing description** | The marketing description. According to the property **size** which is configured for the item. |
+| **Picture 2 (jpeg)**      | Second image of the variation. |
+| **Picture 3 (jpeg)**      | Third image of the variation. |
+| **Picture 4 (jpeg)**      | Fourth image of the variation. |
+| **ISBN / GTIN**           | The ISBN of the variation. |
+| **MFPN**                  | The model of the variation. |
+| **Length**                | The length of the variation in centimeter. |
+| **Width**                 | The width of the variation in centimeter. |
+| **Height**                | The height of the variation in centimeter. |
+| **Weight**                | The weight of the variation in kilogram. |
+| **Main color**            | The color. According to the property **main_color** which is configured for the item. |
+| **Gender**                | The gender. According to the property **gender** which is configured for the item. |
+| **Type of public**        | The target group. According to the property **type_of_public** which is configured for the item. |
+| **Sports**                | According to the property **sports** which is configured for the item. |
+| **Comment**               | According to the property **comment** which is configured for the item. |
 
 ## 4 Licence
 
