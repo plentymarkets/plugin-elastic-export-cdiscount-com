@@ -2,6 +2,9 @@
 
 ## v1.0.18 (2018-04-17)
 
+### Hinzugefügt
+- Der User Guide wurde erweitert.
+
 ### Geändert
 - Die Klasse FiltrationService übernimmt die Filtrierung der Varianten.
 - Vorschaubilder aktualisiert.

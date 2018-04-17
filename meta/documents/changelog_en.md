@@ -2,6 +2,9 @@
 
 ## v1.0.18 (2018-04-17)
 
+### Added
+- The User Guide was extended.
+
 ### Changed
 - The class FiltrationService is responsible for the filtration of all variations.
 - Preview images updated.
