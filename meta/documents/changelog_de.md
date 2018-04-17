@@ -1,10 +1,15 @@
 # Release Notes für Elastic Export Cdiscount.com
 
-## v1.0.17 (2018-03-28)
+## v1.0.18 (2018-04-17)
 
 ### Geändert
 - Die Klasse FiltrationService übernimmt die Filtrierung der Varianten.
 - Vorschaubilder aktualisiert.
+
+## v1.0.17 (2018-03-08)
+
+### Behoben
+- **Basket long wording** beinhaltet die Attributwerte bei Varianten.
 
 ## v1.0.16 (2018-02-21)
 
