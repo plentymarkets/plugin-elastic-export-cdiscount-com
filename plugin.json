@@ -2,7 +2,7 @@
   "name": "ElasticExportCdiscountCOM",
   "namespace": "ElasticExportCdiscountCOM",
   "type": "export",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "license": "GNU AFFERO GENERAL PUBLIC LICENSE Version 3, 19 November 2007",
   "pluginIcon": "icon_plugin_md.png",
   "price": 0.00,
@@ -11,13 +11,8 @@
     "de": "Übertragung der Artikeldaten zum Online-Marktplatz Cdiscount über den elastischen Export.",
     "en": "Item export to the online market Cdiscount via the elastic export."
   },
-  "categories": [
-    "3523"
-  ],
-  "marketplaceName": {
-    "de":"Cdiscount.com",
-    "en":"Cdiscount.com"
-  },
+  "categories": ["3523"],
+  "marketplaceName": "Cdiscount.com",
   "author": "plentymarkets GmbH",
   "authorIcon": "icon_author_xs.png",
   "serviceProvider": "ElasticExportCdiscountCOM\\ElasticExportCdiscountCOMServiceProvider",
