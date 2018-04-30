@@ -45,7 +45,9 @@ class CdiscountCOM extends ResultFields
     public function generateResultFields(array $formatSettings = []):array
     {
         $settings = $this->arrayHelper->buildMapFromObjectList($formatSettings, 'key', 'value');
-		$this->setOrderByList(['item.id', ElasticSearch::SORTING_ORDER_ASC]);
+		$this->setOrderByList([
+			'path' => 'item.id',
+			'order' => ElasticSearch::SORTING_ORDER_ASC]);
 		$reference = $settings->get('referrerId') ? $settings->get('referrerId') : self::CDISCOUNT_COM;
 
         /**
