@@ -1,5 +1,10 @@
 # Release Notes für Elastic Export Cdiscount.com
 
+## v1.0.19 (2018-04-30)
+
+### Geändert
+- Laravel 5.5 Update.
+
 ## v1.0.18 (2018-04-17)
 
 ### Hinzugefügt
