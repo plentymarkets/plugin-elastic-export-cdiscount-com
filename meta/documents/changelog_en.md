@@ -1,5 +1,10 @@
 # Release Notes for Elastic Export Cdiscount.com
 
+## v1.0.22 (2019-10-08)
+
+### Changed
+- The user guide was updated (changed form of address, corrected broken links).
+
 ## v1.0.21 (2019-01-21)
 
 ### Changed
