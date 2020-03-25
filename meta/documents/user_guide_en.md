@@ -7,7 +7,7 @@
 Items are sold on the marketplace Cdiscount. For further information about this market, refer to the [Setting up cdiscount](https://knowledge.plentymarkets.com/en/markets/cdiscount) page of the manual.
 
 <div class="alert alert-info" role="alert">
-This plugin gives you access to the export format *CdiscountCOM*. You only need this export format if Cdiscount requests a CSV file containing item data. To sell your products on the market Cdiscount, go to **Setup » Markets » Cdiscount.com** in the <a href="https://knowledge.plentymarkets.com/maerkte/cdiscount" target="_blank">plentymarkets backend</a>.
+This plugin gives you access to the export format <b>CdiscountCOM</b>. You only need this export format if Cdiscount requests a CSV file containing item data. To sell your products on the market Cdiscount, go to <b>Setup » Markets » Cdiscount.com</b> in the <a href="https://knowledge.plentymarkets.com/maerkte/cdiscount" target="_blank">plentymarkets backend</a>.
 </div>
 
 ## 2 Setting up the data format CdiscountCOM-Plugin in plentymarkets
