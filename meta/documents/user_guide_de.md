@@ -6,9 +6,13 @@
 
 Auf dem Marktplatz Cdiscount bietest du deine Artikel zum Verkauf an. Weitere Informationen zu diesem Marktplatz findest du auf der Handbuchseite [Cdiscount einrichten](https://knowledge.plentymarkets.com/maerkte/cdiscount).
 
+<div class="alert alert-info" role="alert">
+Dieses Plugin stellt das Exportformat <b>CdiscountCOM</b> bereit. Dieses Exportformat benötigst du nur, wenn Cdiscount eine CSV-Datei anfordert, die deine Artikeldaten enthält. Den Verkauf deiner Artikel auf dem Marktplatz Cdiscount konfigurierst du im Menü <b>Einrichtung » Märkte » Cdiscount.com</b> <a href="https://knowledge.plentymarkets.com/maerkte/cdiscount" target="_blank">des plentymarkets Backend</a>.
+</div>
+
 ## 2 Das Format CdiscountCOM-Plugin in plentymarkets einrichten
 
-Mit der Installation dieses Plugins erhältst du das Exportformat **CdiscountCOM-Plugin**, mit dem du Daten über den elastischen Export zu Cdiscount.com überträgst. Um dieses Format für den elastischen Export nutzen zu können, installiere zunächst das Plugin **Elastic Export** aus dem plentyMarketplace, wenn noch nicht geschehen. 
+Mit der Installation dieses Plugins erhältst du das Exportformat **CdiscountCOM-Plugin**, mit dem du Daten über den elastischen Export zu Cdiscount.com überträgst. Um dieses Format für den elastischen Export nutzen zu können, installiere zunächst das Plugin **Elastic Export** aus dem plentyMarketplace, wenn noch nicht geschehen.
 
 Sobald beide Plugins in deinem System installiert sind, kann das Exportformat **CdiscountCOM-Plugin** erstellt werden. Weitere Informationen findest du auf der Handbuchseite [Elastischer Export](https://knowledge.plentymarkets.com/daten/daten-exportieren/elastischer-export).
 
@@ -22,7 +26,7 @@ Neues Exportformat erstellen:
 
 In der folgenden Tabelle findest du Hinweise zu den einzelnen Formateinstellungen und empfohlenen Artikelfiltern für das Format **CdiscountCOM-Plugin**.
 
-| **Einstellung**                                     | **Erläuterung** | 
+| **Einstellung**                                     | **Erläuterung** |
 | :---                                                | :--- |
 | **Einstellungen**                                   | |
 | **Name**                                            | Name eingeben. Unter diesem Namen erscheint das Exportformat in der Übersicht im Tab **Exporte**. |

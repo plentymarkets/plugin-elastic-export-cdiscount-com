@@ -6,6 +6,10 @@
 
 Items are sold on the marketplace Cdiscount. For further information about this market, refer to the [Setting up cdiscount](https://knowledge.plentymarkets.com/en/markets/cdiscount) page of the manual.
 
+<div class="alert alert-info" role="alert">
+This plugin gives you access to the export format <b>CdiscountCOM</b>. You only need this export format if Cdiscount requests a CSV file containing item data. To sell your products on the market Cdiscount, go to <b>Setup » Markets » Cdiscount.com</b> in the <a href="https://knowledge.plentymarkets.com/maerkte/cdiscount" target="_blank">plentymarkets backend</a>.
+</div>
+
 ## 2 Setting up the data format CdiscountCOM-Plugin in plentymarkets
 
 By installing this plugin you will receive the export format **CdiscountCOM-Plugin**. Use this format to exchange data between plentymarkets and Cdiscount.com. It is required to install the Plugin Elastic export from the plentyMarketplace first before you can use the format **CdiscountCOM-Plugin** in plentymarkets.
@@ -22,7 +26,7 @@ Creating a new export format:
 
 The following table lists details for settings, format settings and recommended item filters for the format **CdiscountCOM-Plugin**.
 
-| **Setting**                                           | **Explanation** | 
+| **Setting**                                           | **Explanation** |
 | :---                                                  | :--- |
 | **Settings**                                          | |
 | **Name**                                              | Enter a name. The export format will be listed under this name in the overview within the **Exports** tab. |
