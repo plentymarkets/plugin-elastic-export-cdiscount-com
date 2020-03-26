@@ -1,5 +1,10 @@
 # Release Notes for Elastic Export Cdiscount.com
 
+## v1.0.23 (2020-03-26)
+
+### Changed
+- The user guide was updated (information on plugin use added).
+
 ## v1.0.22 (2019-10-08)
 
 ### Changed
@@ -75,7 +80,7 @@
 - An issue was fixed which caused the marketplace categories not to be correctly exported.
 
 ## v1.0.8 (2017-05-12)
- 
+
 ### Added
 - Added a cache for the images to improve the performance.
 
@@ -120,6 +125,6 @@
 - Changed plugin icons.
 
 ## v1.0.0 (2017-02-20)
- 
+
 ### Added
 - Added initial plugin files.
