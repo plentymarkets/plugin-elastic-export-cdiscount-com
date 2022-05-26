@@ -2,7 +2,7 @@
   "name": "ElasticExportCdiscountCOM",
   "namespace": "ElasticExportCdiscountCOM",
   "type": "export",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "license": "GNU AFFERO GENERAL PUBLIC LICENSE Version 3, 19 November 2007",
   "pluginIcon": "icon_plugin_md.png",
   "price": 0.00,
@@ -19,5 +19,7 @@
   "author": "plentysystems AG",
   "authorIcon": "icon_author_xs.png",
   "serviceProvider": "ElasticExportCdiscountCOM\\ElasticExportCdiscountCOMServiceProvider",
-  "require": ["ElasticExport"]
+  "require": {
+    "ElasticExport": ">= 1.6.6"
+  }
 }
