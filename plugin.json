@@ -2,7 +2,7 @@
   "name": "ElasticExportCdiscountCOM",
   "namespace": "ElasticExportCdiscountCOM",
   "type": "export",
-  "version": "1.0.24",
+  "version": "1.1.0",
   "license": "GNU AFFERO GENERAL PUBLIC LICENSE Version 3, 19 November 2007",
   "pluginIcon": "icon_plugin_md.png",
   "price": 0.00,
@@ -15,6 +15,9 @@
   "marketplaceName": {
     "de": "Cdiscount.com",
     "en": "Cdiscount.com"
+  },
+  "platform": {
+    "php": ">= 7.3 <8.1"
   },
   "author": "plentysystems AG",
   "authorIcon": "icon_author_xs.png",

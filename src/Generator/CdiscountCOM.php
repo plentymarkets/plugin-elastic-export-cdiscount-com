@@ -65,7 +65,7 @@ class CdiscountCOM extends CSVPluginGenerator
 	/**
 	 * @var array
 	 */
-	private $imageCache;
+	private $imageCache = [];
 
     /**
      * @var FiltrationService
