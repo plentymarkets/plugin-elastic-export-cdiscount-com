@@ -4,10 +4,10 @@
 
 ## 1 Bei Cdiscount registrieren
 
-Auf dem Marktplatz Cdiscount bietest du deine Artikel zum Verkauf an. Weitere Informationen zu diesem Marktplatz findest du auf der Handbuchseite [Cdiscount einrichten](https://knowledge.plentymarkets.com/maerkte/cdiscount).
+Auf dem Marktplatz Cdiscount bietest du deine Artikel zum Verkauf an. Weitere Informationen zu diesem Marktplatz findest du auf der Handbuchseite [Cdiscount einrichten](https://knowledge.plentymarkets.com/de-de/manual/main/maerkte/cdiscount.html).
 
 <div class="alert alert-info" role="alert">
-Dieses Plugin stellt das Exportformat <b>CdiscountCOM</b> bereit. Dieses Exportformat benötigst du nur, wenn Cdiscount eine CSV-Datei anfordert, die deine Artikeldaten enthält. Den Verkauf deiner Artikel auf dem Marktplatz Cdiscount konfigurierst du im Menü <b>Einrichtung » Märkte » Cdiscount.com</b> <a href="https://knowledge.plentymarkets.com/maerkte/cdiscount" target="_blank">des plentymarkets Backend</a>.
+Dieses Plugin stellt das Exportformat <b>CdiscountCOM</b> bereit. Dieses Exportformat benötigst du nur, wenn Cdiscount eine CSV-Datei anfordert, die deine Artikeldaten enthält. Den Verkauf deiner Artikel auf dem Marktplatz Cdiscount konfigurierst du im Menü <b>Einrichtung » Märkte » Cdiscount.com</b> <a href="https://knowledge.plentymarkets.com/de-de/manual/main/maerkte/cdiscount.html" target="_blank">des plentymarkets Backends</a>.
 </div>
 
 ## 2 Das Format CdiscountCOM-Plugin in plentymarkets einrichten
@@ -99,4 +99,5 @@ In der folgenden Tabelle findest du Hinweise zu den einzelnen Formateinstellunge
 | **Comment**               | Entsprechend es am Artikel hinterlegten Merkmals **comment**. |
 
 ## 4 Licence
-This project is licensed under the GNU AFFERO GENERAL PUBLIC LICENSE.- find further information in the [LICENSE.md](https://github.com/plentymarkets/plugin-elastic-export-cdiscount-com/blob/master/LICENSE.md).
+
+Das gesamte Projekt unterliegt der GNU AFFERO GENERAL PUBLIC LICENSE – weitere Informationen findest du in der [LICENSE.md](https://github.com/plentymarkets/plugin-elastic-export-cdiscount-com/blob/master/LICENSE.md).
